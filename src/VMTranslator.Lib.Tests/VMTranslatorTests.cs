@@ -53,18 +53,22 @@ namespace VMTranslator.Lib.Tests
             Assert.Equal("// push local 5", result[0]);
         }
 
-        [Fact]
-        public void TranslateVMcodeToAssembly_TranslatesPushLocal5()
+        [Theory]
+        [InlineData("local", "LCL")]
+        [InlineData("argument", "ARG")]
+        [InlineData("this", "THIS")]
+        [InlineData("that", "THAT")]
+        public void TranslateVMcodeToAssembly_TranslatesPushLocal5(string segment, string code)
         {
-            var test = "push local 5";
+            var test = $"push {segment} 5";
             var lines = new [] { test };
             var expected = new []
             {
-                "// push local 5",
+                $"// push {segment} 5",
+                $"@{code}",
+                "D=M",
                 "@5",
-                "D=A",
-                "@LCL",
-                "A=M+D",
+                "A=D+A",
                 "D=M",
                 "@SP",
                 "A=M",
@@ -79,18 +83,22 @@ namespace VMTranslator.Lib.Tests
             Assert.Equal(expected, result);
         }
 
-        [Fact]
-        public void TranslateVMcodeToAssembly_TranslatesPushLocal0()
+        [Theory]
+        [InlineData("local", "LCL")]
+        [InlineData("argument", "ARG")]
+        [InlineData("this", "THIS")]
+        [InlineData("that", "THAT")]
+        public void TranslateVMcodeToAssembly_TranslatesPushLocal0(string segment, string code)
         {
-            var test = "push local 0";
+            var test = $"push {segment} 0";
             var lines = new [] { test };
             var expected = new []
             {
-                "// push local 0",
+                $"// push {segment} 0",
+                $"@{code}",
+                "D=M",
                 "@0",
-                "D=A",
-                "@LCL",
-                "A=M+D",
+                "A=D+A",
                 "D=M",
                 "@SP",
                 "A=M",
@@ -105,23 +113,84 @@ namespace VMTranslator.Lib.Tests
             Assert.Equal(expected, result);
         }
 
-        [Fact]
-        public void TranslateVMcodeToAssembly_TranslatesPullLocal5()
+        [Theory]
+        [InlineData("local", "LCL")]
+        [InlineData("argument", "ARG")]
+        [InlineData("this", "THIS")]
+        [InlineData("that", "THAT")]
+        public void TranslateVMcodeToAssembly_TranslatesPopLocal5(string segment, string code)
         {
-            var test = "pull local 5";
+            var test = $"pop {segment} 5";
             var lines = new [] { test };
             var expected = new []
             {
-                "// pull local 5",
+                $"// pop {segment} 5",
                 "@SP",
-                "M=M-1",
-                "A=M",
+                "AM=M-1",
                 "D=M",
-                "@5",
-                "D=A",
-                "@LCL",
-                "A=M+D",
-                "M=D"
+                $"@{code}",
+                "A=M",
+                "A=A+1",
+                "A=A+1",
+                "A=A+1",
+                "A=A+1",
+                "A=A+1",
+                "M=D",
+                ""
+            };
+
+            var result = CreateSut().TranslateVMcodeToAssembly(lines);
+
+            Assert.Equal(expected, result);
+        }
+
+        [Theory]
+        [InlineData("local", "LCL")]
+        [InlineData("argument", "ARG")]
+        [InlineData("this", "THIS")]
+        [InlineData("that", "THAT")]
+        public void TranslateVMcodeToAssembly_TranslatesPopLocal2(string segment, string code)
+        {
+            var test = $"pop {segment} 2";
+            var lines = new [] { test };
+            var expected = new []
+            {
+                $"// pop {segment} 2",
+                "@SP",
+                "AM=M-1",
+                "D=M",
+                $"@{code}",
+                "A=M",
+                "A=A+1",
+                "A=A+1",
+                "M=D",
+                ""
+            };
+
+            var result = CreateSut().TranslateVMcodeToAssembly(lines);
+
+            Assert.Equal(expected, result);
+        }
+
+        [Theory]
+        [InlineData("local", "LCL")]
+        [InlineData("argument", "ARG")]
+        [InlineData("this", "THIS")]
+        [InlineData("that", "THAT")]
+        public void TranslateVMcodeToAssembly_TranslatesPopLocal0(string segment, string code)
+        {
+            var test = $"pop {segment} 0";
+            var lines = new [] { test };
+            var expected = new []
+            {
+                $"// pop {segment} 0",
+                "@SP",
+                "AM=M-1",
+                "D=M",
+                $"@{code}",
+                "A=M",
+                "M=D",
+                ""
             };
 
             var result = CreateSut().TranslateVMcodeToAssembly(lines);

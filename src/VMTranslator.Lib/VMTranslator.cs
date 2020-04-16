@@ -30,6 +30,7 @@ namespace VMTranslator.Lib
                 translatedLines.Add("// " + clean);
                 var command = commandParser.Parse(clean);
                 translatedLines.AddRange(command.ToAssembly());
+                translatedLines.Add("");
             }
 
             return translatedLines.ToArray();
