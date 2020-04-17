@@ -1,8 +1,10 @@
+using System;
+
 namespace VMTranslator.Lib
 {
     public class CommandParser : ICommandParser
     {
-        public ICommand Parse(string line)
+        public ICommand Parse(string line, string staticVariableName = null)
         {
             var parts = line.Split(' ');
             var keyword = parts[0];
@@ -23,9 +25,16 @@ namespace VMTranslator.Lib
                     break;
 
                 case "constant":
+                    if (keyword == "pop")
+                        throw new InvalidOperationException("'pop constant' is an invalid command");
+
+                    command = new ConstantPushCommand(index);
                     break;
 
                 case "static":
+                    command = keyword == "push" ?
+                        (ICommand)new StaticPushCommand(staticVariableName, index) :
+                        new StaticPopCommand(staticVariableName, index);
                     break;
 
                 case "pointer":

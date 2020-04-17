@@ -9,7 +9,16 @@ namespace VMTranslator.Lib.Tests
         {
             return new VMTranslator(
                 new TextCleaner(),
-                new CommandParser());
+                new CommandParser(),
+                string.Empty);
+        }
+
+        private VMTranslator CreateSutWithStaticVariable(string variableName)
+        {
+            return new VMTranslator(
+                new TextCleaner(),
+                new CommandParser(),
+                variableName);
         }
 
         [Fact]
@@ -24,7 +33,7 @@ namespace VMTranslator.Lib.Tests
 
             var result = CreateSut().TranslateVMcodeToAssembly(lines);
 
-            Assert.Equal(0, result.Length);
+            Assert.Empty(result);
         }
 
         [Fact]
@@ -37,7 +46,7 @@ namespace VMTranslator.Lib.Tests
 
             var result = CreateSut().TranslateVMcodeToAssembly(lines);
 
-            Assert.Equal(0, result.Length);
+            Assert.Empty(result);
         }
 
         [Fact]
@@ -194,6 +203,73 @@ namespace VMTranslator.Lib.Tests
             };
 
             var result = CreateSut().TranslateVMcodeToAssembly(lines);
+
+            Assert.Equal(expected, result);
+        }
+
+        [Fact]
+        public void TranslateVMcodeToAssembly_TranslatesPushConstant5()
+        {
+            var test = $"push constant 7";
+            var lines = new [] { test };
+            var expected = new []
+            {
+                "// push constant 7",
+                "@7",
+                "D=A",
+                "@SP",
+                "A=M",
+                "M=D",
+                "@SP",
+                "M=M+1",
+                ""
+            };
+
+            var result = CreateSut().TranslateVMcodeToAssembly(lines);
+
+            Assert.Equal(expected, result);
+        }
+
+        [Fact]
+        public void TranslateVMcodeToAssembly_TranslatesPushStatic4()
+        {
+            var test = $"push static 4";
+            var lines = new [] { test };
+            var expected = new []
+            {
+                "// push static 4",
+                "@Foo.4",
+                "D=M",
+                "@SP",
+                "A=M",
+                "M=D",
+                "@SP",
+                "M=M+1",
+                ""
+            };
+
+            var result = CreateSutWithStaticVariable("Foo").TranslateVMcodeToAssembly(lines);
+
+            Assert.Equal(expected, result);
+        }
+
+        [Fact]
+        public void TranslateVMcodeToAssembly_TranslatesPopStatic4()
+        {
+            var test = $"pop static 4";
+            var lines = new [] { test };
+            var expected = new []
+            {
+                $"// pop static 4",
+                "@SP",
+                "AM=M-1",
+                "D=M",
+                "@Foo.4",
+                "M=D",
+                ""
+            };
+
+            var result = CreateSutWithStaticVariable("Foo").TranslateVMcodeToAssembly(lines);
 
             Assert.Equal(expected, result);
         }
