@@ -2,6 +2,6 @@ namespace VMTranslator.Lib
 {
     public interface IFileWriter
     {
-        void WriteArrayToFile(string[] translatedLines);
+        void WriteArrayToFile(string filename, string[] translatedLines);
     }
 }

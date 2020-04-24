@@ -9,7 +9,9 @@ namespace VMTranslator.Lib.Tests
         {
             return new VMTranslator(
                 new TextCleaner(),
-                new CommandParser(),
+                new CommandParser(
+                    new ArithmeticCommandParser(),
+                    new StackOperationCommandParser()),
                 string.Empty);
         }
 
@@ -17,7 +19,10 @@ namespace VMTranslator.Lib.Tests
         {
             return new VMTranslator(
                 new TextCleaner(),
-                new CommandParser(),
+                new CommandParser(
+                    new ArithmeticCommandParser(),
+                    new StackOperationCommandParser()
+                ),
                 variableName);
         }
 
@@ -260,7 +265,7 @@ namespace VMTranslator.Lib.Tests
             var lines = new [] { test };
             var expected = new []
             {
-                $"// pop static 4",
+                "// pop static 4",
                 "@SP",
                 "AM=M-1",
                 "D=M",
@@ -270,6 +275,225 @@ namespace VMTranslator.Lib.Tests
             };
 
             var result = CreateSutWithStaticVariable("Foo").TranslateVMcodeToAssembly(lines);
+
+            Assert.Equal(expected, result);
+        }
+
+        [Fact]
+        public void TranslateVMcodeToAssembly_TranslatesAdd()
+        {
+            var lines = new [] { "add" };
+            var expected = new []
+            {
+                "// add",
+                "@SP",
+                "AM=M-1",
+                "D=M",
+                "@SP",
+                "A=M-1",
+                "M=D+M",
+                ""
+            };
+
+            var result = CreateSut().TranslateVMcodeToAssembly(lines);
+
+            Assert.Equal(expected, result);
+        }
+
+        [Fact]
+        public void TranslateVMcodeToAssembly_TranslatesSub()
+        {
+            var lines = new [] { "sub" };
+            var expected = new []
+            {
+                "// sub",
+                "@SP",
+                "AM=M-1",
+                "D=M",
+                "@SP",
+                "A=M-1",
+                "M=M-D",
+                ""
+            };
+
+            var result = CreateSut().TranslateVMcodeToAssembly(lines);
+
+            Assert.Equal(expected, result);
+        }
+
+        [Fact]
+        public void TranslateVMcodeToAssembly_TranslatesNeg()
+        {
+            var lines = new [] { "neg" };
+            var expected = new []
+            {
+                "// neg",
+                "@SP",
+                "A=M-1",
+                "M=-M",
+                ""
+            };
+
+            var result = CreateSut().TranslateVMcodeToAssembly(lines);
+
+            Assert.Equal(expected, result);
+        }
+
+        [Fact]
+        public void TranslateVMcodeToAssembly_TranslatesEq()
+        {
+            var lines = new [] { "eq" };
+            var expected = new []
+            {
+                "// eq",
+                "@SP",
+                "AM=M-1",
+                "D=M",
+                "@SP",
+                "A=M-1",
+                "D=M-D",
+                "@EQ_0",
+                "D;JEQ",
+                "@SP",
+                "A=M-1",
+                "M=0",
+                "@EQ_END_0",
+                "0;JMP",
+                "(EQ_0)",
+                "@SP",
+                "A=M-1",
+                "M=-1",
+                "(EQ_END_0)",
+                ""
+            };
+
+            var result = CreateSut().TranslateVMcodeToAssembly(lines);
+
+            Assert.Equal(expected, result);
+        }
+
+        [Fact]
+        public void TranslateVMcodeToAssembly_TranslatesGt()
+        {
+            var lines = new [] { "gt" };
+            var expected = new []
+            {
+                "// gt",
+                "@SP",
+                "AM=M-1",
+                "D=M",
+                "@SP",
+                "A=M-1",
+                "D=M-D",
+                "@GT_0",
+                "D;JGT",
+                "@SP",
+                "A=M-1",
+                "M=0",
+                "@GT_END_0",
+                "0;JMP",
+                "(GT_0)",
+                "@SP",
+                "A=M-1",
+                "M=-1",
+                "(GT_END_0)",
+                ""
+            };
+
+            var result = CreateSut().TranslateVMcodeToAssembly(lines);
+
+            Assert.Equal(expected, result);
+        }
+
+        [Fact]
+        public void TranslateVMcodeToAssembly_TranslatesLt()
+        {
+            var lines = new [] { "lt" };
+            var expected = new []
+            {
+                "// lt",
+                "@SP",
+                "AM=M-1",
+                "D=M",
+                "@SP",
+                "A=M-1",
+                "D=M-D",
+                "@LT_0",
+                "D;JLT",
+                "@SP",
+                "A=M-1",
+                "M=0",
+                "@LT_END_0",
+                "0;JMP",
+                "(LT_0)",
+                "@SP",
+                "A=M-1",
+                "M=-1",
+                "(LT_END_0)",
+                ""
+            };
+
+            var result = CreateSut().TranslateVMcodeToAssembly(lines);
+
+            Assert.Equal(expected, result);
+        }
+
+        [Fact]
+        public void TranslateVMcodeToAssembly_TranslatesAnd()
+        {
+            var lines = new [] { "and" };
+            var expected = new []
+            {
+                "// and",
+                "@SP",
+                "AM=M-1",
+                "D=M",
+                "@SP",
+                "A=M-1",
+                "M=D&M",
+                ""
+            };
+
+            var result = CreateSut().TranslateVMcodeToAssembly(lines);
+
+            Assert.Equal(expected, result);
+        }
+
+        [Fact]
+        public void TranslateVMcodeToAssembly_TranslatesOr()
+        {
+            var lines = new [] { "or" };
+            var expected = new []
+            {
+                "// or",
+                "@SP",
+                "AM=M-1",
+                "D=M",
+                "@SP",
+                "A=M-1",
+                "M=D|M",
+                ""
+            };
+
+            var result = CreateSut().TranslateVMcodeToAssembly(lines);
+
+            Assert.Equal(expected, result);
+        }
+
+        [Fact]
+        public void TranslateVMcodeToAssembly_TranslatesNot()
+        {
+            var lines = new [] { "not" };
+            var expected = new []
+            {
+                "// not",
+                "@SP",
+                "A=M-1",
+                "M=!M",
+                ""
+            };
+
+            var result = CreateSut().TranslateVMcodeToAssembly(lines);
 
             Assert.Equal(expected, result);
         }
