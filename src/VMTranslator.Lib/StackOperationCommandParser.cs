@@ -38,9 +38,15 @@ namespace VMTranslator.Lib
                     break;
 
                 case "pointer":
+                    command = keyword == "push" ?
+                        (ICommand)new PointerPushCommand(index) :
+                        new PointerPopCommand(index);
                     break;
 
                 case "temp":
+                    command = keyword == "push" ?
+                        (ICommand)new TempPushCommand(index) :
+                        new TempPopCommand(index);
                     break;
             }
 

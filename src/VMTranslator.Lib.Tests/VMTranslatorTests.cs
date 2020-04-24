@@ -497,5 +497,145 @@ namespace VMTranslator.Lib.Tests
 
             Assert.Equal(expected, result);
         }
+
+        [Fact]
+        public void TranslateVMcodeToAssembly_TranslatesPushTemp3()
+        {
+            var test = $"push temp 3";
+            var lines = new [] { test };
+            var expected = new []
+            {
+                "// push temp 3",
+                "@R5",
+                "D=A",
+                "@3",
+                "A=D+A",
+                "D=M",
+                "@SP",
+                "A=M",
+                "M=D",
+                "@SP",
+                "M=M+1",
+                ""
+            };
+
+            var result = CreateSut().TranslateVMcodeToAssembly(lines);
+
+            Assert.Equal(expected, result);
+        }
+
+        [Fact]
+        public void TranslateVMcodeToAssembly_TranslatesPopTemp5()
+        {
+            var test = $"pop temp 5";
+            var lines = new [] { test };
+            var expected = new []
+            {
+                "// pop temp 5",
+                "@SP",
+                "AM=M-1",
+                "D=M",
+                "@R5",
+                "A=A+1",
+                "A=A+1",
+                "A=A+1",
+                "A=A+1",
+                "A=A+1",
+                "M=D",
+                ""
+            };
+
+            var result = CreateSut().TranslateVMcodeToAssembly(lines);
+
+            Assert.Equal(expected, result);
+        }
+
+        [Fact]
+        public void TranslateVMcodeToAssembly_TranslatesPushPointer0()
+        {
+            var test = $"push pointer 0";
+            var lines = new [] { test };
+            var expected = new []
+            {
+                "// push pointer 0",
+                "@THIS",
+                "D=M",
+                "@SP",
+                "A=M",
+                "M=D",
+                "@SP",
+                "M=M+1",
+                ""
+            };
+
+            var result = CreateSut().TranslateVMcodeToAssembly(lines);
+
+            Assert.Equal(expected, result);
+        }
+
+        [Fact]
+        public void TranslateVMcodeToAssembly_TranslatesPushPointer1()
+        {
+            var test = $"push pointer 1";
+            var lines = new [] { test };
+            var expected = new []
+            {
+                "// push pointer 1",
+                "@THAT",
+                "D=M",
+                "@SP",
+                "A=M",
+                "M=D",
+                "@SP",
+                "M=M+1",
+                ""
+            };
+
+            var result = CreateSut().TranslateVMcodeToAssembly(lines);
+
+            Assert.Equal(expected, result);
+        }
+
+        [Fact]
+        public void TranslateVMcodeToAssembly_TranslatesPopPointer0()
+        {
+            var test = $"pop pointer 0";
+            var lines = new [] { test };
+            var expected = new []
+            {
+                "// pop pointer 0",
+                "@SP",
+                "AM=M-1",
+                "D=M",
+                "@THIS",
+                "M=D",
+                ""
+            };
+
+            var result = CreateSut().TranslateVMcodeToAssembly(lines);
+
+            Assert.Equal(expected, result);
+        }
+
+        [Fact]
+        public void TranslateVMcodeToAssembly_TranslatesPopPointer1()
+        {
+            var test = $"pop pointer 1";
+            var lines = new [] { test };
+            var expected = new []
+            {
+                "// pop pointer 1",
+                "@SP",
+                "AM=M-1",
+                "D=M",
+                "@THAT",
+                "M=D",
+                ""
+            };
+
+            var result = CreateSut().TranslateVMcodeToAssembly(lines);
+
+            Assert.Equal(expected, result);
+        }
     }
 }
