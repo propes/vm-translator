@@ -41,8 +41,7 @@ namespace VMTranslator.Lib
                 throw new InvalidOperationException($"{firstToken} is not a recognised command");
             }
 
-            var commandType = commandTypes[firstToken];
-            if (commandType == CommandType.Arithmetic)
+            if (commandTypes[firstToken] == CommandType.Arithmetic)
                 return arithmeticCommandParser.Parse(line, staticVariableName);
 
             return stackOperationCommandParser.Parse(line, staticVariableName);
