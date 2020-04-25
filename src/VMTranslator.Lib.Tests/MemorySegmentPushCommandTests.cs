@@ -2,7 +2,7 @@
 
 namespace VMTranslator.Lib.Tests
 {
-    public class SegmentPushCommandTests
+    public class MemorySegmentPushCommandTests
     {
         [Theory]
         [InlineData("local", "LCL")]
@@ -24,7 +24,7 @@ namespace VMTranslator.Lib.Tests
                 "@SP",
                 "M=M+1"
             };
-            var command = new SegmentPushCommand();
+            var command = new MemorySegmentPushCommand();
 
             var result = command.ToAssembly(segment, "5");
 
@@ -51,7 +51,7 @@ namespace VMTranslator.Lib.Tests
                 "@SP",
                 "M=M+1"
             };
-            var command = new SegmentPushCommand();
+            var command = new MemorySegmentPushCommand();
 
             var result = command.ToAssembly(segment, "0");
 

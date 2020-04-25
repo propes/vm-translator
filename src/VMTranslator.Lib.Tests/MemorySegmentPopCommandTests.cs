@@ -2,7 +2,7 @@
 
 namespace VMTranslator.Lib.Tests
 {
-    public class SegmentPopCommandTests
+    public class MemorySegmentPopCommandTests
     {
         [Theory]
         [InlineData("local", "LCL")]
@@ -26,7 +26,7 @@ namespace VMTranslator.Lib.Tests
                 "A=A+1",
                 "M=D"
             };
-            var command = new SegmentPopCommand();
+            var command = new MemorySegmentPopCommand();
 
             var result = command.ToAssembly(segment, "5");
 
@@ -52,7 +52,7 @@ namespace VMTranslator.Lib.Tests
                 "A=A+1",
                 "M=D"
             };
-            var command = new SegmentPopCommand();
+            var command = new MemorySegmentPopCommand();
 
             var result = command.ToAssembly(segment, "2");
 
@@ -76,7 +76,7 @@ namespace VMTranslator.Lib.Tests
                 "A=M",
                 "M=D"
             };
-            var command = new SegmentPopCommand();
+            var command = new MemorySegmentPopCommand();
 
             var result = command.ToAssembly(segment, "0");
 

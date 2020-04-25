@@ -19,9 +19,9 @@ namespace VMTranslator.Lib.Tests
                     "@SP",
                     "M=M+1"
                 };
-            var command = new ConstantPushCommand("7");
+            var command = new ConstantPushCommand();
 
-            var result = command.ToAssembly();
+            var result = command.ToAssembly("7");
 
             Assert.Equal(expected, result);
         }

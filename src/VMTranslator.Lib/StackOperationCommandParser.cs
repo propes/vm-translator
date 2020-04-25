@@ -27,14 +27,14 @@ namespace VMTranslator.Lib
                 case "this":
                 case "that":
                     return keyword == "push" ?
-                        new SegmentPushCommand().ToAssembly(segment, index) :
-                        new SegmentPopCommand().ToAssembly(segment, index);
+                        new MemorySegmentPushCommand().ToAssembly(segment, index) :
+                        new MemorySegmentPopCommand().ToAssembly(segment, index);
 
                 case "constant":
                     if (keyword == "pop")
                         throw new InvalidOperationException("'pop constant' is an invalid command");
 
-                    return new ConstantPushCommand(index).ToAssembly();
+                    return new ConstantPushCommand().ToAssembly(index);
 
                 case "static":
                     return keyword == "push" ?

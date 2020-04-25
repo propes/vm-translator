@@ -1,8 +1,8 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace VMTranslator.Lib
 {
-    public class SegmentPopCommand : SegmentCommand
+    public class MemorySegmentPopCommand : MemorySegmentCommand
     {
         public override IEnumerable<string> ToAssembly(string segment, string index)
         {

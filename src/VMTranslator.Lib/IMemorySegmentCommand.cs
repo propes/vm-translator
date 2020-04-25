@@ -1,8 +1,8 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace VMTranslator.Lib
 {
-    public interface ISegmentCommand
+    public interface IMemorySegmentCommand
     {
         IEnumerable<string> ToAssembly(string segment, string index);
     }

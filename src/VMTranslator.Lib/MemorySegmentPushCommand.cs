@@ -2,7 +2,7 @@
 
 namespace VMTranslator.Lib
 {
-    public class SegmentPushCommand : SegmentCommand
+    public class MemorySegmentPushCommand : MemorySegmentCommand
     {
         public override IEnumerable<string> ToAssembly(string segment, string index)
         {

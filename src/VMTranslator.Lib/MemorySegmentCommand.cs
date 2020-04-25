@@ -1,8 +1,8 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace VMTranslator.Lib
 {
-    public abstract class SegmentCommand : ISegmentCommand
+    public abstract class MemorySegmentCommand : IMemorySegmentCommand
     {
         protected readonly Dictionary<string, string> segmentCodes = new Dictionary<string, string>
         {
