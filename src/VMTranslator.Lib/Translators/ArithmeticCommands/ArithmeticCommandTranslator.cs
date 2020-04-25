@@ -5,19 +5,26 @@ namespace VMTranslator.Lib
 {
     public class ArithmeticCommandTranslator : ICommandTranslator
     {
-        private readonly Dictionary<string, ICommand> commands =
-            new Dictionary<string, ICommand>
+        private readonly Dictionary<string, ICommand> commands;
+
+        public ArithmeticCommandTranslator(
+            ICounter eqCommandCounter,
+            ICounter gtCommandCounter,
+            ICounter ltCommandCounter)
         {
-            { "add", new AddCommand() },
-            { "sub", new SubCommand() },
-            { "neg", new NegCommand() },
-            { "eq", new EqCommand() },
-            { "gt", new GtCommand() },
-            { "lt", new LtCommand() },
-            { "and", new AndCommand() },
-            { "or", new OrCommand() },
-            { "not", new NotCommand() }
-        };
+            commands = new Dictionary<string, ICommand>
+            {
+                { "add", new AddCommand() },
+                { "sub", new SubCommand() },
+                { "neg", new NegCommand() },
+                { "eq", new EqCommand(eqCommandCounter) },
+                { "gt", new GtCommand(gtCommandCounter) },
+                { "lt", new LtCommand(ltCommandCounter) },
+                { "and", new AndCommand() },
+                { "or", new OrCommand() },
+                { "not", new NotCommand() }
+            };
+        }
 
         public IEnumerable<string> ToAssembly(string line)
         {

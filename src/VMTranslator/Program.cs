@@ -25,7 +25,11 @@ namespace VMTranslator
             translator = new VMTranslator.Lib.VMTranslator(
                 new TextCleaner(),
                 new CommandTranslator(
-                    new ArithmeticCommandTranslator(),
+                    new ArithmeticCommandTranslator(
+                        new Counter(),
+                        new Counter(),
+                        new Counter()
+                    ),
                     new StackOperationCommandTranslator(
                         new CommandParser(),
                         new MemorySegmentPushCommandTranslator(),

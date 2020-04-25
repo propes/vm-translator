@@ -10,7 +10,7 @@ namespace VMTranslator.Lib
             {
                 "@SP",
                 "A=M-1",
-                "M=-M",
+                "M=-M"
             };
         }
     }

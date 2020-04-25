@@ -10,7 +10,11 @@ namespace VMTranslator.Lib.Tests
             return new VMTranslator(
                 new TextCleaner(),
                 new CommandTranslator(
-                    new ArithmeticCommandTranslator(),
+                    new ArithmeticCommandTranslator(
+                        new Counter(),
+                        new Counter(),
+                        new Counter()
+                    ),
                     new StackOperationCommandTranslator(
                         new CommandParser(),
                         new MemorySegmentPushCommandTranslator(),
@@ -31,7 +35,11 @@ namespace VMTranslator.Lib.Tests
             return new VMTranslator(
                 new TextCleaner(),
                 new CommandTranslator(
-                    new ArithmeticCommandTranslator(),
+                    new ArithmeticCommandTranslator(
+                        new Counter(),
+                        new Counter(),
+                        new Counter()
+                    ),
                     new StackOperationCommandTranslator(
                         new CommandParser(),
                         new MemorySegmentPushCommandTranslator(),
