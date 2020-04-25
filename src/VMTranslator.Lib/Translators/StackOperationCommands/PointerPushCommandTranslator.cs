@@ -2,7 +2,7 @@
 
 namespace VMTranslator.Lib
 {
-    public class PointerPushCommandTranslator : IPointerCommandTranslator
+    public class PointerPushCommandTranslator : IStackOperationCommandTranslator
     {
         public IEnumerable<string> ToAssembly(Command command)
         {

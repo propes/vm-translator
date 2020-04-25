@@ -2,7 +2,7 @@
 
 namespace VMTranslator.Lib
 {
-    public class StaticPopCommandTranslator : IStaticCommandTranslator
+    public class StaticPopCommandTranslator : IStackOperationCommandTranslator
     {
         private readonly string variableName;
 

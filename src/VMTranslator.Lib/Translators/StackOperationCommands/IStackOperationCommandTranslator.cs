@@ -2,7 +2,7 @@
 
 namespace VMTranslator.Lib
 {
-    public interface IMemorySegmentCommandTranslator
+    public interface IStackOperationCommandTranslator
     {
         IEnumerable<string> ToAssembly(Command command);
     }

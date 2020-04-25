@@ -6,27 +6,27 @@ namespace VMTranslator.Lib
     public class StackOperationCommandTranslator : ICommandTranslator
     {
         private readonly ICommandParser commandParser;
-        private readonly IMemorySegmentCommandTranslator memorySegmentPushCommand;
-        private readonly IMemorySegmentCommandTranslator memorySegmentPopCommand;
-        private readonly IConstantCommandTranslator constantPushCommand;
-        private readonly IStaticCommandTranslator staticPushCommand;
-        private readonly IStaticCommandTranslator staticPopCommand;
-        private readonly IPointerCommandTranslator pointerPushCommand;
-        private readonly IPointerCommandTranslator pointerPopCommand;
-        private readonly ITempCommandTranslator tempPushCommand;
-        private readonly ITempCommandTranslator tempPopCommand;
+        private readonly IStackOperationCommandTranslator memorySegmentPushCommand;
+        private readonly IStackOperationCommandTranslator memorySegmentPopCommand;
+        private readonly IStackOperationCommandTranslator constantPushCommand;
+        private readonly IStackOperationCommandTranslator staticPushCommand;
+        private readonly IStackOperationCommandTranslator staticPopCommand;
+        private readonly IStackOperationCommandTranslator pointerPushCommand;
+        private readonly IStackOperationCommandTranslator pointerPopCommand;
+        private readonly IStackOperationCommandTranslator tempPushCommand;
+        private readonly IStackOperationCommandTranslator tempPopCommand;
 
         public StackOperationCommandTranslator(
             ICommandParser commandParser,
-            IMemorySegmentCommandTranslator memorySegmentPushCommand,
-            IMemorySegmentCommandTranslator memorySegmentPopCommand,
-            IConstantCommandTranslator constantPushCommand,
-            IStaticCommandTranslator staticPushCommand,
-            IStaticCommandTranslator staticPopCommand,
-            IPointerCommandTranslator pointerPushCommand,
-            IPointerCommandTranslator pointerPopCommand,
-            ITempCommandTranslator tempPushCommand,
-            ITempCommandTranslator tempPopCommand)
+            IStackOperationCommandTranslator memorySegmentPushCommand,
+            IStackOperationCommandTranslator memorySegmentPopCommand,
+            IStackOperationCommandTranslator constantPushCommand,
+            IStackOperationCommandTranslator staticPushCommand,
+            IStackOperationCommandTranslator staticPopCommand,
+            IStackOperationCommandTranslator pointerPushCommand,
+            IStackOperationCommandTranslator pointerPopCommand,
+            IStackOperationCommandTranslator tempPushCommand,
+            IStackOperationCommandTranslator tempPopCommand)
         {
             this.commandParser = commandParser;
             this.memorySegmentPushCommand = memorySegmentPushCommand;
