@@ -4,6 +4,6 @@ namespace VMTranslator.Lib
 {
     public interface IStaticCommand
     {
-        IEnumerable<string> ToAssembly(string variableName, string index);
+        IEnumerable<string> ToAssembly(string index);
     }
 }

@@ -25,8 +25,7 @@ namespace VMTranslator.Lib
             IPointerCommand pointerPushCommand,
             IPointerCommand pointerPopCommand,
             ITempCommand tempPushCommand,
-            ITempCommand TempPopCommand,
-            string staticVariableName)
+            ITempCommand TempPopCommand)
         {
             this.memorySegmentPushCommand = memorySegmentPushCommand;
             this.memorySegmentPopCommand = memorySegmentPopCommand;
@@ -37,7 +36,6 @@ namespace VMTranslator.Lib
             this.pointerPopCommand = pointerPopCommand;
             this.tempPushCommand = tempPushCommand;
             tempPopCommand = TempPopCommand;
-            this.staticVariableName = staticVariableName;
         }
 
         public IEnumerable<string> Parse(string line)
@@ -65,8 +63,8 @@ namespace VMTranslator.Lib
 
                 case "static":
                     return keyword == "push" ?
-                        staticPushCommand.ToAssembly(staticVariableName, index) :
-                        staticPopCommand.ToAssembly(staticVariableName, index);
+                        staticPushCommand.ToAssembly(index) :
+                        staticPopCommand.ToAssembly(index);
 
                 case "pointer":
                     return keyword == "push" ?

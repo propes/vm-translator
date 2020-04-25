@@ -19,6 +19,7 @@ namespace VMTranslator
             }
 
             var filename = args[0];
+            var filenameWithoutExt = Path.GetFileNameWithoutExtension(filename);
 
             fileReader = new FileReader();
             translator = new VMTranslator.Lib.VMTranslator(
@@ -29,13 +30,12 @@ namespace VMTranslator
                         new MemorySegmentPushCommand(),
                         new MemorySegmentPopCommand(),
                         new ConstantPushCommand(),
-                        new StaticPushCommand(),
-                        new StaticPopCommand(),
+                        new StaticPushCommand(filenameWithoutExt),
+                        new StaticPopCommand(filenameWithoutExt),
                         new PointerPushCommand(),
                         new PointerPopCommand(),
                         new TempPushCommand(),
-                        new TempPopCommand(),
-                        Path.GetFileNameWithoutExtension(filename)
+                        new TempPopCommand()
                     )
                 ));
             fileWriter = new FileWriter();

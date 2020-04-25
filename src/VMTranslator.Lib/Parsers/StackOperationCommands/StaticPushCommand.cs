@@ -4,7 +4,14 @@ namespace VMTranslator.Lib
 {
     public class StaticPushCommand : IStaticCommand
     {
-        public IEnumerable<string> ToAssembly(string variableName, string index)
+        private readonly string variableName;
+
+        public StaticPushCommand(string variableName)
+        {
+            this.variableName = variableName;
+        }
+
+        public IEnumerable<string> ToAssembly(string index)
         {
             return new[]
             {

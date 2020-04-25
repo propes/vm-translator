@@ -20,7 +20,7 @@ namespace VMTranslator.Lib.Tests
                 "M=M+1"
             };
 
-            var result = new StaticPushCommand().ToAssembly("Foo", "4");
+            var result = new StaticPushCommand("Foo").ToAssembly("4");
 
             Assert.Equal(expected, result);
         }

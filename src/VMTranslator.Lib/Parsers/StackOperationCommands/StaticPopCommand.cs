@@ -4,7 +4,14 @@ namespace VMTranslator.Lib
 {
     public class StaticPopCommand : IStaticCommand
     {
-        public IEnumerable<string> ToAssembly(string variableName, string index)
+        private readonly string variableName;
+
+        public StaticPopCommand(string variableName)
+        {
+            this.variableName = variableName;
+        }
+
+        public IEnumerable<string> ToAssembly(string index)
         {
             return new[]
             {

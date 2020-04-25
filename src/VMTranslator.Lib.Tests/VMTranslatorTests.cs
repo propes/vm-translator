@@ -15,13 +15,12 @@ namespace VMTranslator.Lib.Tests
                         new MemorySegmentPushCommand(),
                         new MemorySegmentPopCommand(),
                         new ConstantPushCommand(),
-                        new StaticPushCommand(),
-                        new StaticPopCommand(),
+                        new StaticPushCommand(string.Empty),
+                        new StaticPopCommand(string.Empty),
                         new PointerPushCommand(),
                         new PointerPopCommand(),
                         new TempPushCommand(),
-                        new TempPopCommand(),
-                        string.Empty)
+                        new TempPopCommand())
                     )
                 );
         }
@@ -36,13 +35,12 @@ namespace VMTranslator.Lib.Tests
                         new MemorySegmentPushCommand(),
                         new MemorySegmentPopCommand(),
                         new ConstantPushCommand(),
-                        new StaticPushCommand(),
-                        new StaticPopCommand(),
+                        new StaticPushCommand(variableName),
+                        new StaticPopCommand(variableName),
                         new PointerPushCommand(),
                         new PointerPopCommand(),
                         new TempPushCommand(),
-                        new TempPopCommand(),
-                        variableName
+                        new TempPopCommand()
                     )
                 ));
         }
