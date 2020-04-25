@@ -43,8 +43,8 @@ namespace VMTranslator.Lib
 
                 case "pointer":
                     return keyword == "push" ?
-                        new PointerPushCommand(index).ToAssembly() :
-                        new PointerPopCommand(index).ToAssembly();
+                        new PointerPushCommand().ToAssembly(index) :
+                        new PointerPopCommand().ToAssembly(index);
 
                 case "temp":
                     return keyword == "push" ?

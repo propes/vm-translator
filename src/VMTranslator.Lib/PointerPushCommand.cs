@@ -2,16 +2,9 @@ using System.Collections.Generic;
 
 namespace VMTranslator.Lib
 {
-    public class PointerPushCommand : ICommand
+    public class PointerPushCommand : IPointerCommand
     {
-        private readonly string index;
-
-        public PointerPushCommand(string index)
-        {
-            this.index = index;
-        }
-
-        public IEnumerable<string> ToAssembly()
+        public IEnumerable<string> ToAssembly(string index)
         {
             var segment = index == "0" ? "THIS" : "THAT";
             return new []
