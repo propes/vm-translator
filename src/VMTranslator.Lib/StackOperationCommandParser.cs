@@ -38,8 +38,8 @@ namespace VMTranslator.Lib
 
                 case "static":
                     return keyword == "push" ?
-                        new StaticPushCommand(staticVariableName, index).ToAssembly() :
-                        new StaticPopCommand(staticVariableName, index).ToAssembly();
+                        new StaticPushCommand().ToAssembly(staticVariableName, index) :
+                        new StaticPopCommand().ToAssembly(staticVariableName, index);
 
                 case "pointer":
                     return keyword == "push" ?

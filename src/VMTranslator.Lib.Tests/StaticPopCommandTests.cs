@@ -18,7 +18,7 @@ namespace VMTranslator.Lib.Tests
                 "M=D"
             };
 
-            var result = new StaticPopCommand("Foo", "4").ToAssembly();
+            var result = new StaticPopCommand().ToAssembly("Foo", "4");
 
             Assert.Equal(expected, result);
         }

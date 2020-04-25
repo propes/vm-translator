@@ -2,22 +2,13 @@ using System.Collections.Generic;
 
 namespace VMTranslator.Lib
 {
-    public class StaticPushCommand : ICommand
+    public class StaticPushCommand : IStaticCommand
     {
-        private readonly string variable;
-        private readonly string index;
-
-        public StaticPushCommand(string variable, string index)
-        {
-            this.variable = variable;
-            this.index = index;
-        }
-
-        public IEnumerable<string> ToAssembly()
+        public IEnumerable<string> ToAssembly(string variableName, string index)
         {
             return new[]
             {
-                $"@{variable}.{index}",
+                $"@{variableName}.{index}",
                 "D=M",
                 "@SP",
                 "A=M",

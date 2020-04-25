@@ -2,18 +2,9 @@ using System.Collections.Generic;
 
 namespace VMTranslator.Lib
 {
-    public class StaticPopCommand : ICommand
+    public class StaticPopCommand : IStaticCommand
     {
-        private readonly string variableName;
-        private readonly string index;
-
-        public StaticPopCommand(string variableName, string index)
-        {
-            this.variableName = variableName;
-            this.index = index;
-        }
-
-        public IEnumerable<string> ToAssembly()
+        public IEnumerable<string> ToAssembly(string variableName, string index)
         {
             return new[]
             {
