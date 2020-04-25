@@ -7,7 +7,8 @@ namespace VMTranslator.Lib
     {
         private readonly string staticVariableName;
 
-        public StackOperationCommandParser(string staticVariableName)
+        public StackOperationCommandParser(
+            string staticVariableName)
         {
             this.staticVariableName = staticVariableName;
         }
@@ -19,46 +20,40 @@ namespace VMTranslator.Lib
             var segment = parts[1];
             var index = parts[2];
 
-            ICommand command = null;
-
             switch (segment)
             {
                 case "local":
                 case "argument":
                 case "this":
                 case "that":
-                    command = keyword == "push" ?
-                        (ICommand)new SegmentPushCommand(segment, index) :
-                        new SegmentPopCommand(segment, index);
-                    break;
+                    return keyword == "push" ?
+                        new SegmentPushCommand().ToAssembly(segment, index) :
+                        new SegmentPopCommand().ToAssembly(segment, index);
 
                 case "constant":
                     if (keyword == "pop")
                         throw new InvalidOperationException("'pop constant' is an invalid command");
 
-                    command = new ConstantPushCommand(index);
-                    break;
+                    return new ConstantPushCommand(index).ToAssembly();
 
                 case "static":
-                    command = keyword == "push" ?
-                        (ICommand)new StaticPushCommand(staticVariableName, index) :
-                        new StaticPopCommand(staticVariableName, index);
-                    break;
+                    return keyword == "push" ?
+                        new StaticPushCommand(staticVariableName, index).ToAssembly() :
+                        new StaticPopCommand(staticVariableName, index).ToAssembly();
 
                 case "pointer":
-                    command = keyword == "push" ?
-                        (ICommand)new PointerPushCommand(index) :
-                        new PointerPopCommand(index);
-                    break;
+                    return keyword == "push" ?
+                        new PointerPushCommand(index).ToAssembly() :
+                        new PointerPopCommand(index).ToAssembly();
 
                 case "temp":
-                    command = keyword == "push" ?
-                        (ICommand)new TempPushCommand(index) :
-                        new TempPopCommand(index);
-                    break;
-            }
+                    return keyword == "push" ?
+                        new TempPushCommand(index).ToAssembly() :
+                        new TempPopCommand(index).ToAssembly();
 
-            return command.ToAssembly();
+                default:
+                    throw new InvalidOperationException($"keyword '{keyword}' not recognised");
+            }
         }
     }
 }

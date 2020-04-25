@@ -26,9 +26,9 @@ namespace VMTranslator.Lib.Tests
                 "A=A+1",
                 "M=D"
             };
-            var command = new SegmentPopCommand(segment, "5");
+            var command = new SegmentPopCommand();
 
-            var result = command.ToAssembly();
+            var result = command.ToAssembly(segment, "5");
 
             Assert.Equal(expected, result);
         }
@@ -52,9 +52,9 @@ namespace VMTranslator.Lib.Tests
                 "A=A+1",
                 "M=D"
             };
-            var command = new SegmentPopCommand(segment, "2");
+            var command = new SegmentPopCommand();
 
-            var result = command.ToAssembly();
+            var result = command.ToAssembly(segment, "2");
 
             Assert.Equal(expected, result);
         }
@@ -76,9 +76,9 @@ namespace VMTranslator.Lib.Tests
                 "A=M",
                 "M=D"
             };
-            var command = new SegmentPopCommand(segment, "0");
+            var command = new SegmentPopCommand();
 
-            var result = command.ToAssembly();
+            var result = command.ToAssembly(segment, "0");
 
             Assert.Equal(expected, result);
         }

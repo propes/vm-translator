@@ -24,9 +24,9 @@ namespace VMTranslator.Lib.Tests
                 "@SP",
                 "M=M+1"
             };
-            var command = new SegmentPushCommand(segment, "5");
+            var command = new SegmentPushCommand();
 
-            var result = command.ToAssembly();
+            var result = command.ToAssembly(segment, "5");
 
             Assert.Equal(expected, result);
         }
@@ -51,9 +51,9 @@ namespace VMTranslator.Lib.Tests
                 "@SP",
                 "M=M+1"
             };
-            var command = new SegmentPushCommand(segment, "0");
+            var command = new SegmentPushCommand();
 
-            var result = command.ToAssembly();
+            var result = command.ToAssembly(segment, "0");
 
             Assert.Equal(expected, result);
         }

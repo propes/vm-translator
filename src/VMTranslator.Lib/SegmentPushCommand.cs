@@ -4,18 +4,15 @@ namespace VMTranslator.Lib
 {
     public class SegmentPushCommand : SegmentCommand
     {
-        public SegmentPushCommand(string segment, string index) :
-            base(segment, index)
+        public override IEnumerable<string> ToAssembly(string segment, string index)
         {
-        }
+            var segmentCode = segmentCodes[segment];
 
-        public override IEnumerable<string> ToAssembly()
-        {
             return new []
             {
-                $"@{this.segmentCode}",
+                $"@{segmentCode}",
                 "D=M",
-                $"@{this.Index}",
+                $"@{index}",
                 "A=D+A",
                 "D=M",
                 "@SP",

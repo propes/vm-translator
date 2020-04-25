@@ -2,9 +2,9 @@ using System.Collections.Generic;
 
 namespace VMTranslator.Lib
 {
-    public abstract class SegmentCommand : ICommand
+    public abstract class SegmentCommand : ISegmentCommand
     {
-        private readonly Dictionary<string, string> segments = new Dictionary<string, string>
+        protected readonly Dictionary<string, string> segmentCodes = new Dictionary<string, string>
         {
             { "local", "LCL" },
             { "argument", "ARG" },
@@ -12,17 +12,6 @@ namespace VMTranslator.Lib
             { "that", "THAT" }
         };
 
-        public SegmentCommand(string segment, string index)
-        {
-            this.Segment = segment;
-            this.Index = index;
-        }
-
-        public string Segment { get; private set; }
-        public string Index { get; private set; }
-
-        protected string segmentCode => this.segments[this.Segment];
-
-        public abstract IEnumerable<string> ToAssembly();
+        public abstract IEnumerable<string> ToAssembly(string segment, string index);
     }
 }
