@@ -12,6 +12,12 @@ namespace VMTranslator
 
         static void Main(string[] args)
         {
+            if (args.Length == 0)
+            {
+                Console.WriteLine("Please specify a vm file path");
+                return;
+            }
+
             var filename = args[0];
 
             fileReader = new FileReader();
