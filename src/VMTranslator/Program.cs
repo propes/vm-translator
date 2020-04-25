@@ -26,7 +26,17 @@ namespace VMTranslator
                 new CommandParser(
                     new ArithmeticCommandParser(),
                     new StackOperationCommandParser(
-                        Path.GetFileNameWithoutExtension(filename))
+                        new MemorySegmentPushCommand(),
+                        new MemorySegmentPopCommand(),
+                        new ConstantPushCommand(),
+                        new StaticPushCommand(),
+                        new StaticPopCommand(),
+                        new PointerPushCommand(),
+                        new PointerPopCommand(),
+                        new TempPushCommand(),
+                        new TempPopCommand(),
+                        Path.GetFileNameWithoutExtension(filename)
+                    )
                 ));
             fileWriter = new FileWriter();
 

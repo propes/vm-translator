@@ -11,7 +11,18 @@ namespace VMTranslator.Lib.Tests
                 new TextCleaner(),
                 new CommandParser(
                     new ArithmeticCommandParser(),
-                    new StackOperationCommandParser(string.Empty))
+                    new StackOperationCommandParser(
+                        new MemorySegmentPushCommand(),
+                        new MemorySegmentPopCommand(),
+                        new ConstantPushCommand(),
+                        new StaticPushCommand(),
+                        new StaticPopCommand(),
+                        new PointerPushCommand(),
+                        new PointerPopCommand(),
+                        new TempPushCommand(),
+                        new TempPopCommand(),
+                        string.Empty)
+                    )
                 );
         }
 
@@ -21,7 +32,18 @@ namespace VMTranslator.Lib.Tests
                 new TextCleaner(),
                 new CommandParser(
                     new ArithmeticCommandParser(),
-                    new StackOperationCommandParser(variableName)
+                    new StackOperationCommandParser(
+                        new MemorySegmentPushCommand(),
+                        new MemorySegmentPopCommand(),
+                        new ConstantPushCommand(),
+                        new StaticPushCommand(),
+                        new StaticPopCommand(),
+                        new PointerPushCommand(),
+                        new PointerPopCommand(),
+                        new TempPushCommand(),
+                        new TempPopCommand(),
+                        variableName
+                    )
                 ));
         }
 

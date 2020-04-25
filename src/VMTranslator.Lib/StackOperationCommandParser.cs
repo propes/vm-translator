@@ -5,11 +5,38 @@ namespace VMTranslator.Lib
 {
     public class StackOperationCommandParser : ICommandParser
     {
+        private readonly IMemorySegmentCommand memorySegmentPushCommand;
+        private readonly IMemorySegmentCommand memorySegmentPopCommand;
+        private readonly IConstantCommand constantPushCommand;
+        private readonly IStaticCommand staticPushCommand;
+        private readonly IStaticCommand staticPopCommand;
+        private readonly IPointerCommand pointerPushCommand;
+        private readonly IPointerCommand pointerPopCommand;
+        private readonly ITempCommand tempPushCommand;
+        private readonly ITempCommand tempPopCommand;
         private readonly string staticVariableName;
 
         public StackOperationCommandParser(
+            IMemorySegmentCommand memorySegmentPushCommand,
+            IMemorySegmentCommand memorySegmentPopCommand,
+            IConstantCommand constantPushCommand,
+            IStaticCommand staticPushCommand,
+            IStaticCommand StaticPopCommand,
+            IPointerCommand pointerPushCommand,
+            IPointerCommand pointerPopCommand,
+            ITempCommand tempPushCommand,
+            ITempCommand TempPopCommand,
             string staticVariableName)
         {
+            this.memorySegmentPushCommand = memorySegmentPushCommand;
+            this.memorySegmentPopCommand = memorySegmentPopCommand;
+            this.constantPushCommand = constantPushCommand;
+            this.staticPushCommand = staticPushCommand;
+            staticPopCommand = StaticPopCommand;
+            this.pointerPushCommand = pointerPushCommand;
+            this.pointerPopCommand = pointerPopCommand;
+            this.tempPushCommand = tempPushCommand;
+            tempPopCommand = TempPopCommand;
             this.staticVariableName = staticVariableName;
         }
 
@@ -27,29 +54,29 @@ namespace VMTranslator.Lib
                 case "this":
                 case "that":
                     return keyword == "push" ?
-                        new MemorySegmentPushCommand().ToAssembly(segment, index) :
-                        new MemorySegmentPopCommand().ToAssembly(segment, index);
+                        memorySegmentPushCommand.ToAssembly(segment, index) :
+                        memorySegmentPopCommand.ToAssembly(segment, index);
 
                 case "constant":
                     if (keyword == "pop")
                         throw new InvalidOperationException("'pop constant' is an invalid command");
 
-                    return new ConstantPushCommand().ToAssembly(index);
+                    return constantPushCommand.ToAssembly(index);
 
                 case "static":
                     return keyword == "push" ?
-                        new StaticPushCommand().ToAssembly(staticVariableName, index) :
-                        new StaticPopCommand().ToAssembly(staticVariableName, index);
+                        staticPushCommand.ToAssembly(staticVariableName, index) :
+                        staticPopCommand.ToAssembly(staticVariableName, index);
 
                 case "pointer":
                     return keyword == "push" ?
-                        new PointerPushCommand().ToAssembly(index) :
-                        new PointerPopCommand().ToAssembly(index);
+                        pointerPushCommand.ToAssembly(index) :
+                        pointerPopCommand.ToAssembly(index);
 
                 case "temp":
                     return keyword == "push" ?
-                        new TempPushCommand().ToAssembly(index) :
-                        new TempPopCommand().ToAssembly(index);
+                        tempPushCommand.ToAssembly(index) :
+                        tempPopCommand.ToAssembly(index);
 
                 default:
                     throw new InvalidOperationException($"keyword '{keyword}' not recognised");
