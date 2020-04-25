@@ -1,8 +1,8 @@
-using Xunit;
+﻿using Xunit;
 
 namespace VMTranslator.Lib.Tests
 {
-    public class StaticPopCommandTests
+    public class StaticPopCommandTranslatorTests
     {
         [Fact]
         public void ToAssembly_TranslatesPushStatic4()

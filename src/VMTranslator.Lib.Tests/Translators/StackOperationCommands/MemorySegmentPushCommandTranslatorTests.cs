@@ -2,7 +2,7 @@
 
 namespace VMTranslator.Lib.Tests
 {
-    public class MemorySegmentPushCommandTests
+    public class MemorySegmentPushCommandTranslatorTests
     {
         [Theory]
         [InlineData("local", "LCL")]

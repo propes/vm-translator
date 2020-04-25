@@ -2,7 +2,7 @@
 
 namespace VMTranslator.Lib.Tests
 {
-    public class ConstantPushCommandTests
+    public class ConstantPushCommandTranslatorTests
     {
         [Fact]
         public void ToAssembly_TranslatesPushConstant()
