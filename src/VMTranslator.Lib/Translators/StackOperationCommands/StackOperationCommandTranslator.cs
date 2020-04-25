@@ -20,21 +20,21 @@ namespace VMTranslator.Lib
             IMemorySegmentCommandTranslator memorySegmentPopCommand,
             IConstantCommandTranslator constantPushCommand,
             IStaticCommandTranslator staticPushCommand,
-            IStaticCommandTranslator StaticPopCommand,
+            IStaticCommandTranslator staticPopCommand,
             IPointerCommandTranslator pointerPushCommand,
             IPointerCommandTranslator pointerPopCommand,
             ITempCommandTranslator tempPushCommand,
-            ITempCommandTranslator TempPopCommand)
+            ITempCommandTranslator tempPopCommand)
         {
             this.memorySegmentPushCommand = memorySegmentPushCommand;
             this.memorySegmentPopCommand = memorySegmentPopCommand;
             this.constantPushCommand = constantPushCommand;
             this.staticPushCommand = staticPushCommand;
-            staticPopCommand = StaticPopCommand;
+            this.staticPopCommand = staticPopCommand;
             this.pointerPushCommand = pointerPushCommand;
             this.pointerPopCommand = pointerPopCommand;
             this.tempPushCommand = tempPushCommand;
-            tempPopCommand = TempPopCommand;
+            this.tempPopCommand = tempPopCommand;
         }
 
         public IEnumerable<string> ToAssembly(string line)
