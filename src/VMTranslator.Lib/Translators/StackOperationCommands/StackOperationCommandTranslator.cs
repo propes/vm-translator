@@ -5,6 +5,7 @@ namespace VMTranslator.Lib
 {
     public class StackOperationCommandTranslator : ICommandTranslator
     {
+        private readonly ICommandParser commandParser;
         private readonly IMemorySegmentCommandTranslator memorySegmentPushCommand;
         private readonly IMemorySegmentCommandTranslator memorySegmentPopCommand;
         private readonly IConstantCommandTranslator constantPushCommand;
@@ -16,6 +17,7 @@ namespace VMTranslator.Lib
         private readonly ITempCommandTranslator tempPopCommand;
 
         public StackOperationCommandTranslator(
+            ICommandParser commandParser,
             IMemorySegmentCommandTranslator memorySegmentPushCommand,
             IMemorySegmentCommandTranslator memorySegmentPopCommand,
             IConstantCommandTranslator constantPushCommand,
@@ -26,6 +28,7 @@ namespace VMTranslator.Lib
             ITempCommandTranslator tempPushCommand,
             ITempCommandTranslator tempPopCommand)
         {
+            this.commandParser = commandParser;
             this.memorySegmentPushCommand = memorySegmentPushCommand;
             this.memorySegmentPopCommand = memorySegmentPopCommand;
             this.constantPushCommand = constantPushCommand;
@@ -39,44 +42,41 @@ namespace VMTranslator.Lib
 
         public IEnumerable<string> ToAssembly(string line)
         {
-            var parts = line.Split(' ');
-            var keyword = parts[0];
-            var segment = parts[1];
-            var index = parts[2];
+            var command = commandParser.Parse(line);
 
-            switch (segment)
+            switch (command.Segment)
             {
                 case "local":
                 case "argument":
                 case "this":
                 case "that":
-                    return keyword == "push" ?
-                        memorySegmentPushCommand.ToAssembly(segment, index) :
-                        memorySegmentPopCommand.ToAssembly(segment, index);
+                    return command.Keyword == "push" ?
+                        memorySegmentPushCommand.ToAssembly(command) :
+                        memorySegmentPopCommand.ToAssembly(command);
 
                 case "constant":
-                    if (keyword == "pop")
+                    if (command.Keyword == "pop")
                         throw new InvalidOperationException("'pop constant' is an invalid command");
 
-                    return constantPushCommand.ToAssembly(index);
+                    return constantPushCommand.ToAssembly(command);
 
                 case "static":
-                    return keyword == "push" ?
-                        staticPushCommand.ToAssembly(index) :
-                        staticPopCommand.ToAssembly(index);
+                    return command.Keyword == "push" ?
+                        staticPushCommand.ToAssembly(command) :
+                        staticPopCommand.ToAssembly(command);
 
                 case "pointer":
-                    return keyword == "push" ?
-                        pointerPushCommand.ToAssembly(index) :
-                        pointerPopCommand.ToAssembly(index);
+                    return command.Keyword == "push" ?
+                        pointerPushCommand.ToAssembly(command) :
+                        pointerPopCommand.ToAssembly(command);
 
                 case "temp":
-                    return keyword == "push" ?
-                        tempPushCommand.ToAssembly(index) :
-                        tempPopCommand.ToAssembly(index);
+                    return command.Keyword == "push" ?
+                        tempPushCommand.ToAssembly(command) :
+                        tempPopCommand.ToAssembly(command);
 
                 default:
-                    throw new InvalidOperationException($"keyword '{keyword}' not recognised");
+                    throw new InvalidOperationException($"keyword '{command.Keyword}' not recognised");
             }
         }
     }

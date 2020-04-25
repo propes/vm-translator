@@ -4,9 +4,9 @@ namespace VMTranslator.Lib
 {
     public class MemorySegmentPopCommandTranslator : MemorySegmentCommandTranslator
     {
-        public override IEnumerable<string> ToAssembly(string segment, string index)
+        public override IEnumerable<string> ToAssembly(Command command)
         {
-            var segmentCode = segmentCodes[segment];
+            var segmentCode = segmentCodes[command.Segment];
             var lines = new List<string>();
             lines.AddRange(new []
             {
@@ -16,7 +16,7 @@ namespace VMTranslator.Lib
                 $"@{segmentCode}",
                 "A=M"
             });
-            for (int i = 0; i < int.Parse(index); i++)
+            for (int i = 0; i < int.Parse(command.Index); i++)
             {
                 lines.Add("A=A+1");
             }

@@ -12,6 +12,6 @@ namespace VMTranslator.Lib
             { "that", "THAT" }
         };
 
-        public abstract IEnumerable<string> ToAssembly(string segment, string index);
+        public abstract IEnumerable<string> ToAssembly(Command command);
     }
 }

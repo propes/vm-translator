@@ -27,6 +27,7 @@ namespace VMTranslator
                 new CommandTranslator(
                     new ArithmeticCommandTranslator(),
                     new StackOperationCommandTranslator(
+                        new CommandParser(),
                         new MemorySegmentPushCommandTranslator(),
                         new MemorySegmentPopCommandTranslator(),
                         new ConstantPushCommandTranslator(),

@@ -4,9 +4,9 @@ namespace VMTranslator.Lib
 {
     public class PointerPushCommandTranslator : IPointerCommandTranslator
     {
-        public IEnumerable<string> ToAssembly(string index)
+        public IEnumerable<string> ToAssembly(Command command)
         {
-            var segment = index == "0" ? "THIS" : "THAT";
+            var segment = command.Index == "0" ? "THIS" : "THAT";
             return new []
             {
                 $"@{segment}",

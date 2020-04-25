@@ -4,11 +4,11 @@ namespace VMTranslator.Lib
 {
     public class ConstantPushCommandTranslator : IConstantCommandTranslator
     {
-        public IEnumerable<string> ToAssembly(string index)
+        public IEnumerable<string> ToAssembly(Command command)
         {
             return new []
             {
-                $"@{index}",
+                $"@{command.Index}",
                 "D=A",
                 "@SP",
                 "A=M",

@@ -11,6 +11,7 @@ namespace VMTranslator.Lib.Tests
         [InlineData("that", "THAT")]
         public void ToAssembly_TranslatesPushLocal5(string segment, string code)
         {
+            var command = new Command("push", segment, "5");
             var expected = new []
             {
                 $"@{code}",
@@ -24,9 +25,8 @@ namespace VMTranslator.Lib.Tests
                 "@SP",
                 "M=M+1"
             };
-            var command = new MemorySegmentPushCommandTranslator();
 
-            var result = command.ToAssembly(segment, "5");
+            var result = new MemorySegmentPushCommandTranslator().ToAssembly(command);
 
             Assert.Equal(expected, result);
         }
@@ -38,6 +38,7 @@ namespace VMTranslator.Lib.Tests
         [InlineData("that", "THAT")]
         public void ToAssembly_TranslatesPushLocal0(string segment, string code)
         {
+            var command = new Command("push", segment, "0");
             var expected = new []
             {
                 $"@{code}",
@@ -51,9 +52,8 @@ namespace VMTranslator.Lib.Tests
                 "@SP",
                 "M=M+1"
             };
-            var command = new MemorySegmentPushCommandTranslator();
 
-            var result = command.ToAssembly(segment, "0");
+            var result = new MemorySegmentPushCommandTranslator().ToAssembly(command);
 
             Assert.Equal(expected, result);
         }

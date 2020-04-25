@@ -4,7 +4,7 @@ namespace VMTranslator.Lib
 {
     public class TempPopCommandTranslator : ITempCommandTranslator
     {
-        public IEnumerable<string> ToAssembly(string index)
+        public IEnumerable<string> ToAssembly(Command command)
         {
             var lines = new List<string>();
             lines.AddRange(new []
@@ -14,7 +14,7 @@ namespace VMTranslator.Lib
                 "D=M",
                 "@R5"
             });
-            for (int i = 0; i < int.Parse(index); i++)
+            for (int i = 0; i < int.Parse(command.Index); i++)
             {
                 lines.Add("A=A+1");
             }

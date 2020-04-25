@@ -11,14 +11,14 @@ namespace VMTranslator.Lib
             this.variableName = variableName;
         }
 
-        public IEnumerable<string> ToAssembly(string index)
+        public IEnumerable<string> ToAssembly(Command command)
         {
             return new[]
             {
                 "@SP",
                 "AM=M-1",
                 "D=M",
-                $"@{variableName}.{index}",
+                $"@{variableName}.{command.Index}",
                 "M=D"
             };
         }

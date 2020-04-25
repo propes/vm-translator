@@ -11,7 +11,7 @@ namespace VMTranslator.Lib.Tests
         [InlineData("that", "THAT")]
         public void ToAssembly_TranslatesPopLocal5(string segment, string code)
         {
-            var lines = new [] { $"pop {segment} 5" };
+            var command = new Command("pop", segment, "5");
             var expected = new []
             {
                 "@SP",
@@ -26,9 +26,8 @@ namespace VMTranslator.Lib.Tests
                 "A=A+1",
                 "M=D"
             };
-            var command = new MemorySegmentPopCommandTranslator();
 
-            var result = command.ToAssembly(segment, "5");
+            var result = new MemorySegmentPopCommandTranslator().ToAssembly(command);
 
             Assert.Equal(expected, result);
         }
@@ -40,7 +39,7 @@ namespace VMTranslator.Lib.Tests
         [InlineData("that", "THAT")]
         public void ToAssembly_TranslatesPopLocal2(string segment, string code)
         {
-            var lines = new [] { $"pop {segment} 2" };
+            var command = new Command("pop", segment, "2");
             var expected = new []
             {
                 "@SP",
@@ -52,9 +51,8 @@ namespace VMTranslator.Lib.Tests
                 "A=A+1",
                 "M=D"
             };
-            var command = new MemorySegmentPopCommandTranslator();
 
-            var result = command.ToAssembly(segment, "2");
+            var result = new MemorySegmentPopCommandTranslator().ToAssembly(command);
 
             Assert.Equal(expected, result);
         }
@@ -66,7 +64,7 @@ namespace VMTranslator.Lib.Tests
         [InlineData("that", "THAT")]
         public void ToAssembly_TranslatesPopLocal0(string segment, string code)
         {
-            var lines = new [] { $"pop {segment} 0" };
+            var command = new Command("pop", segment, "0");
             var expected = new []
             {
                 "@SP",
@@ -76,9 +74,8 @@ namespace VMTranslator.Lib.Tests
                 "A=M",
                 "M=D"
             };
-            var command = new MemorySegmentPopCommandTranslator();
 
-            var result = command.ToAssembly(segment, "0");
+            var result = new MemorySegmentPopCommandTranslator().ToAssembly(command);
 
             Assert.Equal(expected, result);
         }

@@ -7,8 +7,7 @@ namespace VMTranslator.Lib.Tests
         [Fact]
         public void ToAssembly_TranslatesPushStatic4()
         {
-            var test = $"pop static 4";
-            var lines = new[] { test };
+            var command = new Command("push", "static", "4");
             var expected = new[]
             {
                 "@SP",
@@ -18,7 +17,7 @@ namespace VMTranslator.Lib.Tests
                 "M=D"
             };
 
-            var result = new StaticPopCommandTranslator("Foo").ToAssembly("4");
+            var result = new StaticPopCommandTranslator("Foo").ToAssembly(command);
 
             Assert.Equal(expected, result);
         }

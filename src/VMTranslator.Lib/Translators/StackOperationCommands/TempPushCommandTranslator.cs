@@ -4,13 +4,13 @@ namespace VMTranslator.Lib
 {
     public class TempPushCommandTranslator : ITempCommandTranslator
     {
-        public IEnumerable<string> ToAssembly(string index)
+        public IEnumerable<string> ToAssembly(Command command)
         {
             return new []
             {
                 "@R5",
                 "D=A",
-                $"@{index}",
+                $"@{command.Index}",
                 "A=D+A",
                 "D=M",
                 "@SP",

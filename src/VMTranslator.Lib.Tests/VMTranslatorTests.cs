@@ -12,6 +12,7 @@ namespace VMTranslator.Lib.Tests
                 new CommandTranslator(
                     new ArithmeticCommandTranslator(),
                     new StackOperationCommandTranslator(
+                        new CommandParser(),
                         new MemorySegmentPushCommandTranslator(),
                         new MemorySegmentPopCommandTranslator(),
                         new ConstantPushCommandTranslator(),
@@ -32,6 +33,7 @@ namespace VMTranslator.Lib.Tests
                 new CommandTranslator(
                     new ArithmeticCommandTranslator(),
                     new StackOperationCommandTranslator(
+                        new CommandParser(),
                         new MemorySegmentPushCommandTranslator(),
                         new MemorySegmentPopCommandTranslator(),
                         new ConstantPushCommandTranslator(),

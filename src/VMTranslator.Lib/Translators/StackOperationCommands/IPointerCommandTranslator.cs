@@ -4,6 +4,6 @@ namespace VMTranslator.Lib
 {
     public interface IPointerCommandTranslator
     {
-        IEnumerable<string> ToAssembly(string index);
+        IEnumerable<string> ToAssembly(Command command);
     }
 }

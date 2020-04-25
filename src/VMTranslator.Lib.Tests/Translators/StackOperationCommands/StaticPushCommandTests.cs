@@ -7,8 +7,7 @@ namespace VMTranslator.Lib.Tests
         [Fact]
         public void ToAssembly_TranslatesPushStatic4()
         {
-            var test = $"push static 4";
-            var lines = new[] { test };
+            var command = new Command("push", "static", "4");
             var expected = new[]
             {
                 "@Foo.4",
@@ -20,7 +19,7 @@ namespace VMTranslator.Lib.Tests
                 "M=M+1"
             };
 
-            var result = new StaticPushCommandTranslator("Foo").ToAssembly("4");
+            var result = new StaticPushCommandTranslator("Foo").ToAssembly(command);
 
             Assert.Equal(expected, result);
         }
