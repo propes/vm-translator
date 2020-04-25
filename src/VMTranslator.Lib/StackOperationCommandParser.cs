@@ -48,8 +48,8 @@ namespace VMTranslator.Lib
 
                 case "temp":
                     return keyword == "push" ?
-                        new TempPushCommand(index).ToAssembly() :
-                        new TempPopCommand(index).ToAssembly();
+                        new TempPushCommand().ToAssembly(index) :
+                        new TempPopCommand().ToAssembly(index);
 
                 default:
                     throw new InvalidOperationException($"keyword '{keyword}' not recognised");

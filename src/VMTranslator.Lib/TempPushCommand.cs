@@ -2,16 +2,9 @@ using System.Collections.Generic;
 
 namespace VMTranslator.Lib
 {
-    public class TempPushCommand : ICommand
+    public class TempPushCommand : ITempCommand
     {
-        private readonly string index;
-
-        public TempPushCommand(string index)
-        {
-            this.index = index;
-        }
-
-        public IEnumerable<string> ToAssembly()
+        public IEnumerable<string> ToAssembly(string index)
         {
             return new []
             {

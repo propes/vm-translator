@@ -2,16 +2,9 @@ using System.Collections.Generic;
 
 namespace VMTranslator.Lib
 {
-    public class TempPopCommand : ICommand
+    public class TempPopCommand : ITempCommand
     {
-        private readonly string index;
-
-        public TempPopCommand(string index)
-        {
-            this.index = index;
-        }
-
-        public IEnumerable<string> ToAssembly()
+        public IEnumerable<string> ToAssembly(string index)
         {
             var lines = new List<string>();
             lines.AddRange(new []
@@ -21,7 +14,7 @@ namespace VMTranslator.Lib
                 "D=M",
                 "@R5"
             });
-            for (int i = 0; i < int.Parse(this.index); i++)
+            for (int i = 0; i < int.Parse(index); i++)
             {
                 lines.Add("A=A+1");
             }
