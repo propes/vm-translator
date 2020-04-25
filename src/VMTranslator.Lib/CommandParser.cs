@@ -27,7 +27,7 @@ namespace VMTranslator.Lib
             };
         }
 
-        public ICommand Parse(string line, string staticVariableName = null)
+        public ICommand Parse(string line)
         {
             var firstToken = line.Split(' ')[0];
 
@@ -36,7 +36,7 @@ namespace VMTranslator.Lib
                 throw new InvalidOperationException($"{firstToken} is not a recognised command");
             }
 
-            return parsers[firstToken].Parse(line, staticVariableName);
+            return parsers[firstToken].Parse(line);
         }
     }
 }

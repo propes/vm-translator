@@ -11,8 +11,8 @@ namespace VMTranslator.Lib.Tests
                 new TextCleaner(),
                 new CommandParser(
                     new ArithmeticCommandParser(),
-                    new StackOperationCommandParser()),
-                string.Empty);
+                    new StackOperationCommandParser(string.Empty))
+                );
         }
 
         private VMTranslator CreateSutWithStaticVariable(string variableName)
@@ -21,9 +21,8 @@ namespace VMTranslator.Lib.Tests
                 new TextCleaner(),
                 new CommandParser(
                     new ArithmeticCommandParser(),
-                    new StackOperationCommandParser()
-                ),
-                variableName);
+                    new StackOperationCommandParser(variableName)
+                ));
         }
 
         [Fact]

@@ -2,6 +2,6 @@ namespace VMTranslator.Lib
 {
     public interface ICommandParser
     {
-        ICommand Parse(string line, string staticVariableName = null);
+        ICommand Parse(string line);
     }
 }

@@ -4,7 +4,14 @@ namespace VMTranslator.Lib
 {
     public class StackOperationCommandParser : ICommandParser
     {
-        public ICommand Parse(string line, string staticVariableName = null)
+        private readonly string staticVariableName;
+
+        public StackOperationCommandParser(string staticVariableName)
+        {
+            this.staticVariableName = staticVariableName;
+        }
+
+        public ICommand Parse(string line)
         {
             var parts = line.Split(' ');
             var keyword = parts[0];

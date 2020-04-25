@@ -25,9 +25,9 @@ namespace VMTranslator
                 new TextCleaner(),
                 new CommandParser(
                     new ArithmeticCommandParser(),
-                    new StackOperationCommandParser()
-                ),
-                filename);
+                    new StackOperationCommandParser(
+                        Path.GetFileNameWithoutExtension(filename))
+                ));
             fileWriter = new FileWriter();
 
             var lines = fileReader.ReadFileToArray(filename);

@@ -4,7 +4,7 @@ namespace VMTranslator.Lib
 {
     public class ArithmeticCommandParser : ICommandParser
     {
-        public ICommand Parse(string line, string staticVariableName = null)
+        public ICommand Parse(string line)
         {
             switch (line)
             {

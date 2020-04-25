@@ -6,16 +6,11 @@ namespace VMTranslator.Lib
     {
         private readonly ITextCleaner textCleaner;
         private readonly ICommandParser commandParser;
-        private readonly string staticVariableName;
 
-        public VMTranslator(
-            ITextCleaner textCleaner,
-            ICommandParser commandParser,
-            string staticVariableName)
+        public VMTranslator(ITextCleaner textCleaner, ICommandParser commandParser)
         {
             this.textCleaner = textCleaner;
             this.commandParser = commandParser;
-            this.staticVariableName = staticVariableName;
         }
 
         public string[] TranslateVMcodeToAssembly(string[] lines)
@@ -31,7 +26,7 @@ namespace VMTranslator.Lib
                     continue;
 
                 translatedLines.Add("// " + clean);
-                var command = commandParser.Parse(clean, staticVariableName);
+                var command = commandParser.Parse(clean);
                 translatedLines.AddRange(command.ToAssembly());
                 translatedLines.Add("");
             }
