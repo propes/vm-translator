@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace VMTranslator.Lib
 {
@@ -11,7 +12,7 @@ namespace VMTranslator.Lib
             this.staticVariableName = staticVariableName;
         }
 
-        public ICommand Parse(string line)
+        public IEnumerable<string> Parse(string line)
         {
             var parts = line.Split(' ');
             var keyword = parts[0];
@@ -57,7 +58,7 @@ namespace VMTranslator.Lib
                     break;
             }
 
-            return command;
+            return command.ToAssembly();
         }
     }
 }

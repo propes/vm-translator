@@ -27,7 +27,7 @@ namespace VMTranslator.Lib
             };
         }
 
-        public ICommand Parse(string line)
+        public IEnumerable<string> Parse(string line)
         {
             var firstToken = line.Split(' ')[0];
 

@@ -19,15 +19,14 @@ namespace VMTranslator.Lib
 
             foreach (var line in lines)
             {
-                var clean = textCleaner.StripComments(line);
-                clean = textCleaner.StripWhitespace(clean);
+                var cleanLines = textCleaner.StripComments(line);
+                cleanLines = textCleaner.StripWhitespace(cleanLines);
 
-                if (string.IsNullOrEmpty(clean))
+                if (string.IsNullOrEmpty(cleanLines))
                     continue;
 
-                translatedLines.Add("// " + clean);
-                var command = commandParser.Parse(clean);
-                translatedLines.AddRange(command.ToAssembly());
+                translatedLines.Add("// " + cleanLines);
+                translatedLines.AddRange(commandParser.Parse(cleanLines));
                 translatedLines.Add("");
             }
 

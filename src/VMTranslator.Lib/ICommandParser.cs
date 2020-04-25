@@ -1,7 +1,9 @@
+using System.Collections.Generic;
+
 namespace VMTranslator.Lib
 {
     public interface ICommandParser
     {
-        ICommand Parse(string line);
+        IEnumerable<string> Parse(string line);
     }
 }
