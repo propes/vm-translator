@@ -24,18 +24,18 @@ namespace VMTranslator
             fileReader = new FileReader();
             translator = new VMTranslator.Lib.VMTranslator(
                 new TextCleaner(),
-                new CommandParser(
-                    new ArithmeticCommandParser(),
-                    new StackOperationCommandParser(
-                        new MemorySegmentPushCommand(),
-                        new MemorySegmentPopCommand(),
-                        new ConstantPushCommand(),
-                        new StaticPushCommand(filenameWithoutExt),
-                        new StaticPopCommand(filenameWithoutExt),
-                        new PointerPushCommand(),
-                        new PointerPopCommand(),
-                        new TempPushCommand(),
-                        new TempPopCommand()
+                new CommandTranslator(
+                    new ArithmeticCommandTranslator(),
+                    new StackOperationCommandTranslator(
+                        new MemorySegmentPushCommandTranslator(),
+                        new MemorySegmentPopCommandTranslator(),
+                        new ConstantPushCommandTranslator(),
+                        new StaticPushCommandTranslator(filenameWithoutExt),
+                        new StaticPopCommandTranslator(filenameWithoutExt),
+                        new PointerPushCommandTranslator(),
+                        new PointerPopCommandTranslator(),
+                        new TempPushCommandTranslator(),
+                        new TempPopCommandTranslator()
                     )
                 ));
             fileWriter = new FileWriter();

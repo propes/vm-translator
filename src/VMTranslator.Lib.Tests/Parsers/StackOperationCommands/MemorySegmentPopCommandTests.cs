@@ -26,7 +26,7 @@ namespace VMTranslator.Lib.Tests
                 "A=A+1",
                 "M=D"
             };
-            var command = new MemorySegmentPopCommand();
+            var command = new MemorySegmentPopCommandTranslator();
 
             var result = command.ToAssembly(segment, "5");
 
@@ -52,7 +52,7 @@ namespace VMTranslator.Lib.Tests
                 "A=A+1",
                 "M=D"
             };
-            var command = new MemorySegmentPopCommand();
+            var command = new MemorySegmentPopCommandTranslator();
 
             var result = command.ToAssembly(segment, "2");
 
@@ -76,7 +76,7 @@ namespace VMTranslator.Lib.Tests
                 "A=M",
                 "M=D"
             };
-            var command = new MemorySegmentPopCommand();
+            var command = new MemorySegmentPopCommandTranslator();
 
             var result = command.ToAssembly(segment, "0");
 

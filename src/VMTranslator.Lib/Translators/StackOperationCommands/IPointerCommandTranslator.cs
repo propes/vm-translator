@@ -1,8 +1,8 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace VMTranslator.Lib
 {
-    public interface IStaticCommand
+    public interface IPointerCommandTranslator
     {
         IEnumerable<string> ToAssembly(string index);
     }

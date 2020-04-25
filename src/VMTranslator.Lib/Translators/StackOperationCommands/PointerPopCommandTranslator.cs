@@ -1,8 +1,8 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace VMTranslator.Lib
 {
-    public class PointerPopCommand : IPointerCommand
+    public class PointerPopCommandTranslator : IPointerCommandTranslator
     {
         public IEnumerable<string> ToAssembly(string index)
         {

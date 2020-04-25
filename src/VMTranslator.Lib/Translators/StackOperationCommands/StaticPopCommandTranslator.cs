@@ -1,12 +1,12 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace VMTranslator.Lib
 {
-    public class StaticPushCommand : IStaticCommand
+    public class StaticPopCommandTranslator : IStaticCommandTranslator
     {
         private readonly string variableName;
 
-        public StaticPushCommand(string variableName)
+        public StaticPopCommandTranslator(string variableName)
         {
             this.variableName = variableName;
         }
@@ -15,13 +15,11 @@ namespace VMTranslator.Lib
         {
             return new[]
             {
-                $"@{variableName}.{index}",
+                "@SP",
+                "AM=M-1",
                 "D=M",
-                "@SP",
-                "A=M",
-                "M=D",
-                "@SP",
-                "M=M+1",
+                $"@{variableName}.{index}",
+                "M=D"
             };
         }
     }

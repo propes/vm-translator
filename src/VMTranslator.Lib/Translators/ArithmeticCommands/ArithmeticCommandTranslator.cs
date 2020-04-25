@@ -1,9 +1,9 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 
 namespace VMTranslator.Lib
 {
-    public class ArithmeticCommandParser : ICommandParser
+    public class ArithmeticCommandTranslator : ICommandTranslator
     {
         private readonly Dictionary<string, ICommand> commands =
             new Dictionary<string, ICommand>
@@ -19,7 +19,7 @@ namespace VMTranslator.Lib
             { "not", new NotCommand() }
         };
 
-        public IEnumerable<string> Parse(string line)
+        public IEnumerable<string> ToAssembly(string line)
         {
             if (!commands.ContainsKey(line))
             {

@@ -1,31 +1,30 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 
 namespace VMTranslator.Lib
 {
-    public class StackOperationCommandParser : ICommandParser
+    public class StackOperationCommandTranslator : ICommandTranslator
     {
-        private readonly IMemorySegmentCommand memorySegmentPushCommand;
-        private readonly IMemorySegmentCommand memorySegmentPopCommand;
-        private readonly IConstantCommand constantPushCommand;
-        private readonly IStaticCommand staticPushCommand;
-        private readonly IStaticCommand staticPopCommand;
-        private readonly IPointerCommand pointerPushCommand;
-        private readonly IPointerCommand pointerPopCommand;
-        private readonly ITempCommand tempPushCommand;
-        private readonly ITempCommand tempPopCommand;
-        private readonly string staticVariableName;
+        private readonly IMemorySegmentCommandTranslator memorySegmentPushCommand;
+        private readonly IMemorySegmentCommandTranslator memorySegmentPopCommand;
+        private readonly IConstantCommandTranslator constantPushCommand;
+        private readonly IStaticCommandTranslator staticPushCommand;
+        private readonly IStaticCommandTranslator staticPopCommand;
+        private readonly IPointerCommandTranslator pointerPushCommand;
+        private readonly IPointerCommandTranslator pointerPopCommand;
+        private readonly ITempCommandTranslator tempPushCommand;
+        private readonly ITempCommandTranslator tempPopCommand;
 
-        public StackOperationCommandParser(
-            IMemorySegmentCommand memorySegmentPushCommand,
-            IMemorySegmentCommand memorySegmentPopCommand,
-            IConstantCommand constantPushCommand,
-            IStaticCommand staticPushCommand,
-            IStaticCommand StaticPopCommand,
-            IPointerCommand pointerPushCommand,
-            IPointerCommand pointerPopCommand,
-            ITempCommand tempPushCommand,
-            ITempCommand TempPopCommand)
+        public StackOperationCommandTranslator(
+            IMemorySegmentCommandTranslator memorySegmentPushCommand,
+            IMemorySegmentCommandTranslator memorySegmentPopCommand,
+            IConstantCommandTranslator constantPushCommand,
+            IStaticCommandTranslator staticPushCommand,
+            IStaticCommandTranslator StaticPopCommand,
+            IPointerCommandTranslator pointerPushCommand,
+            IPointerCommandTranslator pointerPopCommand,
+            ITempCommandTranslator tempPushCommand,
+            ITempCommandTranslator TempPopCommand)
         {
             this.memorySegmentPushCommand = memorySegmentPushCommand;
             this.memorySegmentPopCommand = memorySegmentPopCommand;
@@ -38,7 +37,7 @@ namespace VMTranslator.Lib
             tempPopCommand = TempPopCommand;
         }
 
-        public IEnumerable<string> Parse(string line)
+        public IEnumerable<string> ToAssembly(string line)
         {
             var parts = line.Split(' ');
             var keyword = parts[0];

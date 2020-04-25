@@ -1,21 +1,20 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace VMTranslator.Lib
 {
-    public class PointerPushCommand : IPointerCommand
+    public class ConstantPushCommandTranslator : IConstantCommandTranslator
     {
         public IEnumerable<string> ToAssembly(string index)
         {
-            var segment = index == "0" ? "THIS" : "THAT";
             return new []
             {
-                $"@{segment}",
-                "D=M",
+                $"@{index}",
+                "D=A",
                 "@SP",
                 "A=M",
                 "M=D",
                 "@SP",
-                "M=M+1",
+                "M=M+1"
             };
         }
     }

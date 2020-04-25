@@ -19,7 +19,7 @@ namespace VMTranslator.Lib.Tests
                     "@SP",
                     "M=M+1"
                 };
-            var command = new ConstantPushCommand();
+            var command = new ConstantPushCommandTranslator();
 
             var result = command.ToAssembly("7");
 

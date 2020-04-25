@@ -9,18 +9,18 @@ namespace VMTranslator.Lib.Tests
         {
             return new VMTranslator(
                 new TextCleaner(),
-                new CommandParser(
-                    new ArithmeticCommandParser(),
-                    new StackOperationCommandParser(
-                        new MemorySegmentPushCommand(),
-                        new MemorySegmentPopCommand(),
-                        new ConstantPushCommand(),
-                        new StaticPushCommand(string.Empty),
-                        new StaticPopCommand(string.Empty),
-                        new PointerPushCommand(),
-                        new PointerPopCommand(),
-                        new TempPushCommand(),
-                        new TempPopCommand())
+                new CommandTranslator(
+                    new ArithmeticCommandTranslator(),
+                    new StackOperationCommandTranslator(
+                        new MemorySegmentPushCommandTranslator(),
+                        new MemorySegmentPopCommandTranslator(),
+                        new ConstantPushCommandTranslator(),
+                        new StaticPushCommandTranslator(string.Empty),
+                        new StaticPopCommandTranslator(string.Empty),
+                        new PointerPushCommandTranslator(),
+                        new PointerPopCommandTranslator(),
+                        new TempPushCommandTranslator(),
+                        new TempPopCommandTranslator())
                     )
                 );
         }
@@ -29,18 +29,18 @@ namespace VMTranslator.Lib.Tests
         {
             return new VMTranslator(
                 new TextCleaner(),
-                new CommandParser(
-                    new ArithmeticCommandParser(),
-                    new StackOperationCommandParser(
-                        new MemorySegmentPushCommand(),
-                        new MemorySegmentPopCommand(),
-                        new ConstantPushCommand(),
-                        new StaticPushCommand(variableName),
-                        new StaticPopCommand(variableName),
-                        new PointerPushCommand(),
-                        new PointerPopCommand(),
-                        new TempPushCommand(),
-                        new TempPopCommand()
+                new CommandTranslator(
+                    new ArithmeticCommandTranslator(),
+                    new StackOperationCommandTranslator(
+                        new MemorySegmentPushCommandTranslator(),
+                        new MemorySegmentPopCommandTranslator(),
+                        new ConstantPushCommandTranslator(),
+                        new StaticPushCommandTranslator(variableName),
+                        new StaticPopCommandTranslator(variableName),
+                        new PointerPushCommandTranslator(),
+                        new PointerPopCommandTranslator(),
+                        new TempPushCommandTranslator(),
+                        new TempPopCommandTranslator()
                     )
                 ));
         }

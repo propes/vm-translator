@@ -5,12 +5,12 @@ namespace VMTranslator.Lib
     public class VMTranslator : IVMTranslator
     {
         private readonly ITextCleaner textCleaner;
-        private readonly ICommandParser commandParser;
+        private readonly ICommandTranslator translator;
 
-        public VMTranslator(ITextCleaner textCleaner, ICommandParser commandParser)
+        public VMTranslator(ITextCleaner textCleaner, ICommandTranslator translator)
         {
             this.textCleaner = textCleaner;
-            this.commandParser = commandParser;
+            this.translator = translator;
         }
 
         public string[] TranslateVMcodeToAssembly(string[] lines)
@@ -26,7 +26,7 @@ namespace VMTranslator.Lib
                     continue;
 
                 translatedLines.Add("// " + cleanLines);
-                translatedLines.AddRange(commandParser.Parse(cleanLines));
+                translatedLines.AddRange(translator.ToAssembly(cleanLines));
                 translatedLines.Add("");
             }
 

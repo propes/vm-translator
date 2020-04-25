@@ -2,14 +2,17 @@
 
 namespace VMTranslator.Lib
 {
-    public class ConstantPushCommand : IConstantCommand
+    public class TempPushCommandTranslator : ITempCommandTranslator
     {
         public IEnumerable<string> ToAssembly(string index)
         {
             return new []
             {
-                $"@{index}",
+                "@R5",
                 "D=A",
+                $"@{index}",
+                "A=D+A",
+                "D=M",
                 "@SP",
                 "A=M",
                 "M=D",

@@ -2,7 +2,7 @@
 
 namespace VMTranslator.Lib
 {
-    public interface IMemorySegmentCommand
+    public interface IMemorySegmentCommandTranslator
     {
         IEnumerable<string> ToAssembly(string segment, string index);
     }

@@ -2,19 +2,17 @@
 
 namespace VMTranslator.Lib
 {
-    public class MemorySegmentPopCommand : MemorySegmentCommand
+    public class TempPopCommandTranslator : ITempCommandTranslator
     {
-        public override IEnumerable<string> ToAssembly(string segment, string index)
+        public IEnumerable<string> ToAssembly(string index)
         {
-            var segmentCode = segmentCodes[segment];
             var lines = new List<string>();
             lines.AddRange(new []
             {
                 "@SP",
                 "AM=M-1",
                 "D=M",
-                $"@{segmentCode}",
-                "A=M"
+                "@R5"
             });
             for (int i = 0; i < int.Parse(index); i++)
             {

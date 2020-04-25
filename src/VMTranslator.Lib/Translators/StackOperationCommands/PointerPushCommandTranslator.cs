@@ -1,23 +1,21 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace VMTranslator.Lib
 {
-    public class TempPushCommand : ITempCommand
+    public class PointerPushCommandTranslator : IPointerCommandTranslator
     {
         public IEnumerable<string> ToAssembly(string index)
         {
+            var segment = index == "0" ? "THIS" : "THAT";
             return new []
             {
-                "@R5",
-                "D=A",
-                $"@{index}",
-                "A=D+A",
+                $"@{segment}",
                 "D=M",
                 "@SP",
                 "A=M",
                 "M=D",
                 "@SP",
-                "M=M+1"
+                "M=M+1",
             };
         }
     }

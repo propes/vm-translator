@@ -2,7 +2,7 @@
 
 namespace VMTranslator.Lib
 {
-    public abstract class MemorySegmentCommand : IMemorySegmentCommand
+    public abstract class MemorySegmentCommandTranslator : IMemorySegmentCommandTranslator
     {
         protected readonly Dictionary<string, string> segmentCodes = new Dictionary<string, string>
         {

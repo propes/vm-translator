@@ -24,7 +24,7 @@ namespace VMTranslator.Lib.Tests
                 "@SP",
                 "M=M+1"
             };
-            var command = new MemorySegmentPushCommand();
+            var command = new MemorySegmentPushCommandTranslator();
 
             var result = command.ToAssembly(segment, "5");
 
@@ -51,7 +51,7 @@ namespace VMTranslator.Lib.Tests
                 "@SP",
                 "M=M+1"
             };
-            var command = new MemorySegmentPushCommand();
+            var command = new MemorySegmentPushCommandTranslator();
 
             var result = command.ToAssembly(segment, "0");
 
