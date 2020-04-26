@@ -15,17 +15,19 @@ namespace VMTranslator.Lib.Tests
                         new Counter(),
                         new Counter()
                     ),
-                    new StackOperationCommandTranslator(
+                    new StackOperationTranslator(
                         new CommandParser(),
-                        new MemorySegmentPushCommandTranslator(),
-                        new MemorySegmentPopCommandTranslator(),
-                        new ConstantPushCommandTranslator(),
-                        new StaticPushCommandTranslator(string.Empty),
-                        new StaticPopCommandTranslator(string.Empty),
-                        new PointerPushCommandTranslator(),
-                        new PointerPopCommandTranslator(),
-                        new TempPushCommandTranslator(),
-                        new TempPopCommandTranslator())
+                        new StackOperationTranslatorProvider(
+                            new MemorySegmentPushCommandTranslator(),
+                            new MemorySegmentPopCommandTranslator(),
+                            new ConstantPushCommandTranslator(),
+                            new StaticPushCommandTranslator(string.Empty),
+                            new StaticPopCommandTranslator(string.Empty),
+                            new PointerPushCommandTranslator(),
+                            new PointerPopCommandTranslator(),
+                            new TempPushCommandTranslator(),
+                            new TempPopCommandTranslator())
+                        )
                     )
                 );
         }
@@ -40,17 +42,19 @@ namespace VMTranslator.Lib.Tests
                         new Counter(),
                         new Counter()
                     ),
-                    new StackOperationCommandTranslator(
+                    new StackOperationTranslator(
                         new CommandParser(),
-                        new MemorySegmentPushCommandTranslator(),
-                        new MemorySegmentPopCommandTranslator(),
-                        new ConstantPushCommandTranslator(),
-                        new StaticPushCommandTranslator(variableName),
-                        new StaticPopCommandTranslator(variableName),
-                        new PointerPushCommandTranslator(),
-                        new PointerPopCommandTranslator(),
-                        new TempPushCommandTranslator(),
-                        new TempPopCommandTranslator()
+                        new StackOperationTranslatorProvider(
+                            new MemorySegmentPushCommandTranslator(),
+                            new MemorySegmentPopCommandTranslator(),
+                            new ConstantPushCommandTranslator(),
+                            new StaticPushCommandTranslator(variableName),
+                            new StaticPopCommandTranslator(variableName),
+                            new PointerPushCommandTranslator(),
+                            new PointerPopCommandTranslator(),
+                            new TempPushCommandTranslator(),
+                            new TempPopCommandTranslator()
+                        )
                     )
                 ));
         }
