@@ -27,7 +27,7 @@
 
 ### Coverlet ###
 lcov.info
-coverage/
+coverage-report/
 
 # User-specific files
 *.rsuser

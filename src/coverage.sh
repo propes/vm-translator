@@ -5,4 +5,6 @@ coverlet VMTranslator.Lib.Tests/bin/Debug/netcoreapp2.2/VMTranslator.Lib.Tests.d
     --output "./lcov.info" \
     --format lcov
 
-genhtml lcov.info --output-directory coverage -q
+genhtml lcov.info --output-directory coverage-report -q
+
+chromium-browser coverage-report/index.html
