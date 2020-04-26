@@ -2,7 +2,9 @@
 
 namespace VMTranslator.Lib
 {
-    public class MemorySegmentPopCommandTranslator : MemorySegmentCommandTranslator
+    public class MemorySegmentPopCommandTranslator :
+        MemorySegmentCommandTranslator,
+        IMemorySegmentPopCommandTranslator
     {
         public override IEnumerable<string> ToAssembly(Command command)
         {

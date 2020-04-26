@@ -2,7 +2,7 @@
 
 namespace VMTranslator.Lib
 {
-    public class TempPopCommandTranslator : IStackOperationCommandTranslator
+    public class TempPopCommandTranslator : ITempPopCommandTranslator
     {
         public IEnumerable<string> ToAssembly(Command command)
         {

@@ -15,15 +15,15 @@ namespace VMTranslator.Lib
         private readonly IStackOperationCommandTranslator tempPopCommand;
 
         public StackOperationTranslatorProvider(
-            IStackOperationCommandTranslator memorySegmentPushCommand,
-            IStackOperationCommandTranslator memorySegmentPopCommand,
-            IStackOperationCommandTranslator constantPushCommand,
-            IStackOperationCommandTranslator staticPushCommand,
-            IStackOperationCommandTranslator staticPopCommand,
-            IStackOperationCommandTranslator pointerPushCommand,
-            IStackOperationCommandTranslator pointerPopCommand,
-            IStackOperationCommandTranslator tempPushCommand,
-            IStackOperationCommandTranslator tempPopCommand)
+            IMemorySegmentPushCommandTranslator memorySegmentPushCommand,
+            IMemorySegmentPopCommandTranslator memorySegmentPopCommand,
+            IConstantPushCommandTranslator constantPushCommand,
+            IStaticPushCommandTranslator staticPushCommand,
+            IStaticPopCommandTranslator staticPopCommand,
+            IPointerPushCommandTranslator pointerPushCommand,
+            IPointerPopCommandTranslator pointerPopCommand,
+            ITempPushCommandTranslator tempPushCommand,
+            ITempPopCommandTranslator tempPopCommand)
         {
             this.memorySegmentPushCommand = memorySegmentPushCommand;
             this.memorySegmentPopCommand = memorySegmentPopCommand;
