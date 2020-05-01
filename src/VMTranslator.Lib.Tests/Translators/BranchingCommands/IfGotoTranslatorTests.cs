@@ -21,13 +21,13 @@ namespace VMTranslator.Lib.Tests
                 "AM=M-1",
                 "D=M",
                 "@FOO",
-                "D;JLT",
+                "D;JNE",
                 ""
             };
 
             var actual = new IfGotoTranslator().ToAssembly("if-goto FOO");
 
-
+            Assert.Equal(expected, actual);
         }
     }
 }

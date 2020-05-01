@@ -21,7 +21,7 @@ namespace VMTranslator.Lib
                 "AM=M-1",
                 "D=M",
                 $"@{parts[1]}",
-                "D;JLT",
+                "D;JNE",
                 ""
             };
         }
