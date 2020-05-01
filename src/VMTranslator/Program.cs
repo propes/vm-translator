@@ -43,7 +43,8 @@ namespace VMTranslator
                             new TempPushCommandTranslator(),
                             new TempPopCommandTranslator()
                         )
-                    )
+                    ),
+                    new LabelTranslator()
                 ));
             fileWriter = new FileWriter();
 

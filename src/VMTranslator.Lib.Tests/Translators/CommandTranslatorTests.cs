@@ -10,6 +10,7 @@ namespace VMTranslator.Lib.Tests
         {
             private Mock<ICommandTranslator> mockArithmeticTranslator = new Mock<ICommandTranslator>();
             private Mock<ICommandTranslator> mockStackOperationTranslator = new Mock<ICommandTranslator>();
+            private Mock<ICommandTranslator> mockLabelTranslator = new Mock<ICommandTranslator>();
 
             public CommandTranslatorBuilder WithMockArithmeticTranslator(
                 Mock<ICommandTranslator> mockArithmeticTranslator)
@@ -27,11 +28,20 @@ namespace VMTranslator.Lib.Tests
                 return this;
             }
 
+            public CommandTranslatorBuilder WithMockLabelTranslator(
+                Mock<ICommandTranslator> mockLabelTranslator)
+            {
+                this.mockLabelTranslator = mockLabelTranslator;
+
+                return this;
+            }
+
             public CommandTranslator CreateSut()
             {
                 return new CommandTranslator(
                     mockArithmeticTranslator.Object,
-                    mockStackOperationTranslator.Object
+                    mockStackOperationTranslator.Object,
+                    mockLabelTranslator.Object
                 );
             }
         }
@@ -87,6 +97,24 @@ namespace VMTranslator.Lib.Tests
                 .ToAssembly(command);
 
             Assert.Equal(new [] { "stack op" }, actual);
+        }
+
+        [Fact]
+        public void ToAssembly_GivenLabelCommand_ReturnsCorrectOutput()
+        {
+            var command = "label FOO";
+
+            var mockTranslator = new Mock<ICommandTranslator>();
+            mockTranslator
+                .Setup(t => t.ToAssembly(command))
+                .Returns(new [] { "label" });
+
+            var actual = new CommandTranslatorBuilder()
+                .WithMockLabelTranslator(mockTranslator)
+                .CreateSut()
+                .ToAssembly(command);
+
+            Assert.Equal(new [] { "label" }, actual);
         }
     }
 }

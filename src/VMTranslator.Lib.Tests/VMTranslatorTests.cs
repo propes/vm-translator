@@ -70,5 +70,25 @@ namespace VMTranslator.Lib.Tests
 
             Assert.Equal(expected, result);
         }
+
+        [Fact]
+        public void TranslateVMcodeToAssembly_GivenLabelCommand_ReturnsExpected()
+        {
+            var line = "label FOO";
+            var expected = new []
+            {
+                "(FOO)"
+            };
+
+            var mockTranslator = new Mock<ICommandTranslator>();
+            mockTranslator
+                .Setup(t => t.ToAssembly(line))
+                .Returns(new string [] { "(FOO)" });
+
+            var actual = CreateSutWithTranslator(mockTranslator.Object)
+                .TranslateVMcodeToAssembly(new [] { line });
+
+            Assert.Equal(expected, actual);
+        }
     }
 }
