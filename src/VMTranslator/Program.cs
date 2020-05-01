@@ -45,7 +45,8 @@ namespace VMTranslator
                         )
                     ),
                     new LabelTranslator(),
-                    new GotoTranslator()
+                    new GotoTranslator(),
+                    new IfGotoTranslator()
                 ));
             fileWriter = new FileWriter();
 

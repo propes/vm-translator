@@ -1,9 +1,9 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 
 namespace VMTranslator.Lib
 {
-    public class GotoTranslator : ICommandTranslator
+    public class IfGotoTranslator : ICommandTranslator
     {
         public IEnumerable<string> ToAssembly(string line)
         {
@@ -11,14 +11,17 @@ namespace VMTranslator.Lib
 
             if (parts.Length < 2)
             {
-                throw new InvalidOperationException("goto command must be of the form 'goto foo'");
+                throw new InvalidOperationException("if-goto command must be of the form 'if-goto foo'");
             }
 
             return new []
             {
                 $"// {line}",
+                "@SP",
+                "AM=M-1",
+                "D=M",
                 $"@{parts[1]}",
-                "0;JMP",
+                "D;JLT",
                 ""
             };
         }

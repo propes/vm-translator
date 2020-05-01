@@ -1,8 +1,7 @@
 using System;
 using System.Collections.Generic;
-using VMTranslator.Lib;
 
-namespace VMTranslator
+namespace VMTranslator.Lib
 {
     public class LabelTranslator : ICommandTranslator
     {

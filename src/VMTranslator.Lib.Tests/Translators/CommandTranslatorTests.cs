@@ -12,6 +12,7 @@ namespace VMTranslator.Lib.Tests
             private Mock<ICommandTranslator> mockStackOperationTranslator = new Mock<ICommandTranslator>();
             private Mock<ICommandTranslator> mockLabelTranslator = new Mock<ICommandTranslator>();
             private Mock<ICommandTranslator> mockGotoTranslator = new Mock<ICommandTranslator>();
+            private Mock<ICommandTranslator> mockIfGotoTranslator = new Mock<ICommandTranslator>();
 
             public CommandTranslatorBuilder WithMockArithmeticTranslator(
                 Mock<ICommandTranslator> mockArithmeticTranslator)
@@ -45,13 +46,22 @@ namespace VMTranslator.Lib.Tests
                 return this;
             }
 
+            public CommandTranslatorBuilder WithMockIfGotoTranslator(
+                Mock<ICommandTranslator> mockIfGotoTranslator)
+            {
+                this.mockIfGotoTranslator = mockIfGotoTranslator;
+
+                return this;
+            }
+
             public CommandTranslator CreateSut()
             {
                 return new CommandTranslator(
                     mockArithmeticTranslator.Object,
                     mockStackOperationTranslator.Object,
                     mockLabelTranslator.Object,
-                    mockGotoTranslator.Object
+                    mockGotoTranslator.Object,
+                    mockIfGotoTranslator.Object
                 );
             }
         }
@@ -143,6 +153,24 @@ namespace VMTranslator.Lib.Tests
                 .ToAssembly(command);
 
             Assert.Equal(new [] { "goto" }, actual);
+        }
+
+        [Fact]
+        public void ToAssembly_GivenIfGotoCommand_ReturnsCorrectOutput()
+        {
+            var command = "if-goto FOO";
+
+            var mockTranslator = new Mock<ICommandTranslator>();
+            mockTranslator
+                .Setup(t => t.ToAssembly(command))
+                .Returns(new [] { "if-goto" });
+
+            var actual = new CommandTranslatorBuilder()
+                .WithMockIfGotoTranslator(mockTranslator)
+                .CreateSut()
+                .ToAssembly(command);
+
+            Assert.Equal(new [] { "if-goto" }, actual);
         }
     }
 }
