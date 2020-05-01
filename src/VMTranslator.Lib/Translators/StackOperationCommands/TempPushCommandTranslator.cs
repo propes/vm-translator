@@ -8,6 +8,7 @@ namespace VMTranslator.Lib
         {
             return new []
             {
+                $"// {command.ToString()}",
                 "@R5",
                 "D=A",
                 $"@{command.Index}",
@@ -17,7 +18,8 @@ namespace VMTranslator.Lib
                 "A=M",
                 "M=D",
                 "@SP",
-                "M=M+1"
+                "M=M+1",
+                ""
             };
         }
     }

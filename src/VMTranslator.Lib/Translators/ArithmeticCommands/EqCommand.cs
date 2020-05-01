@@ -15,6 +15,7 @@ namespace VMTranslator.Lib
         {
             var aseembly = new string []
             {
+                "// eq",
                 "@SP",
                 "AM=M-1",
                 "D=M",
@@ -32,7 +33,8 @@ namespace VMTranslator.Lib
                 "@SP",
                 "A=M-1",
                 "M=-1",
-                $"(EQ_END_{counter.Count})"
+                $"(EQ_END_{counter.Count})",
+                ""
             };
             counter.Increment();
 

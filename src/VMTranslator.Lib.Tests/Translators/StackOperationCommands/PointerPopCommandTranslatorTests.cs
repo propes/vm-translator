@@ -10,11 +10,13 @@ namespace VMTranslator.Lib.Tests
             var command = new Command("pop", "pointer", "0");
             var expected = new []
             {
+                "// pop pointer 0",
                 "@SP",
                 "AM=M-1",
                 "D=M",
                 "@THIS",
-                "M=D"
+                "M=D",
+                ""
             };
 
             var result = new PointerPopCommandTranslator().ToAssembly(command);
@@ -28,11 +30,13 @@ namespace VMTranslator.Lib.Tests
             var command = new Command("pop", "pointer", "1");
             var expected = new []
             {
+                "// pop pointer 1",
                 "@SP",
                 "AM=M-1",
                 "D=M",
                 "@THAT",
-                "M=D"
+                "M=D",
+                ""
             };
 
             var result = new PointerPopCommandTranslator().ToAssembly(command);

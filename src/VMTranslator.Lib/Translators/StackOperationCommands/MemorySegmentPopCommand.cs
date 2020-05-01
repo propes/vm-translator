@@ -12,6 +12,7 @@ namespace VMTranslator.Lib
             var lines = new List<string>();
             lines.AddRange(new []
             {
+                $"// {command.ToString()}",
                 "@SP",
                 "AM=M-1",
                 "D=M",
@@ -24,6 +25,7 @@ namespace VMTranslator.Lib
             }
 
             lines.Add("M=D");
+            lines.Add("");
 
             return lines;
         }

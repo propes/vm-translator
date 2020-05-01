@@ -8,9 +8,11 @@ namespace VMTranslator.Lib
         {
             return new string []
             {
+                "// neg",
                 "@SP",
                 "A=M-1",
-                "M=-M"
+                "M=-M",
+                ""
             };
         }
     }

@@ -10,11 +10,13 @@ namespace VMTranslator.Lib.Tests
             var command = new Command("push", "static", "4");
             var expected = new[]
             {
+                "// push static 4",
                 "@SP",
                 "AM=M-1",
                 "D=M",
                 "@Foo.4",
-                "M=D"
+                "M=D",
+                ""
             };
 
             var result = new StaticPopCommandTranslator("Foo").ToAssembly(command);

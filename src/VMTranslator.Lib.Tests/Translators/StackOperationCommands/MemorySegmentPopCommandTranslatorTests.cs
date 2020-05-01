@@ -14,6 +14,7 @@ namespace VMTranslator.Lib.Tests
             var command = new Command("pop", segment, "5");
             var expected = new []
             {
+                $"// pop {segment} 5",
                 "@SP",
                 "AM=M-1",
                 "D=M",
@@ -24,7 +25,8 @@ namespace VMTranslator.Lib.Tests
                 "A=A+1",
                 "A=A+1",
                 "A=A+1",
-                "M=D"
+                "M=D",
+                ""
             };
 
             var result = new MemorySegmentPopCommandTranslator().ToAssembly(command);
@@ -42,6 +44,7 @@ namespace VMTranslator.Lib.Tests
             var command = new Command("pop", segment, "2");
             var expected = new []
             {
+                $"// pop {segment} 2",
                 "@SP",
                 "AM=M-1",
                 "D=M",
@@ -49,7 +52,8 @@ namespace VMTranslator.Lib.Tests
                 "A=M",
                 "A=A+1",
                 "A=A+1",
-                "M=D"
+                "M=D",
+                ""
             };
 
             var result = new MemorySegmentPopCommandTranslator().ToAssembly(command);
@@ -67,12 +71,14 @@ namespace VMTranslator.Lib.Tests
             var command = new Command("pop", segment, "0");
             var expected = new []
             {
+                $"// pop {segment} 0",
                 "@SP",
                 "AM=M-1",
                 "D=M",
                 $"@{code}",
                 "A=M",
-                "M=D"
+                "M=D",
+                ""
             };
 
             var result = new MemorySegmentPopCommandTranslator().ToAssembly(command);

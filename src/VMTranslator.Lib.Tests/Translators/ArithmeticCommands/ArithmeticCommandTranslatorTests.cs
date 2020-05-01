@@ -9,12 +9,14 @@ namespace VMTranslator.Lib.Tests
         {
             var expected = new string []
             {
+                "// add",
                 "@SP",
                 "AM=M-1",
                 "D=M",
                 "@SP",
                 "A=M-1",
-                "M=D+M"
+                "M=D+M",
+                ""
             };
 
             var result = new ArithmeticCommandTranslatorBuilder()
@@ -29,12 +31,14 @@ namespace VMTranslator.Lib.Tests
         {
             var expected = new string []
             {
+                "// sub",
                 "@SP",
                 "AM=M-1",
                 "D=M",
                 "@SP",
                 "A=M-1",
-                "M=M-D"
+                "M=M-D",
+                ""
             };
 
             var result = new ArithmeticCommandTranslatorBuilder()
@@ -49,9 +53,11 @@ namespace VMTranslator.Lib.Tests
         {
             var expected = new string []
             {
+                "// neg",
                 "@SP",
                 "A=M-1",
-                "M=-M"
+                "M=-M",
+                ""
             };
 
             var result = new ArithmeticCommandTranslatorBuilder()
@@ -68,6 +74,7 @@ namespace VMTranslator.Lib.Tests
         {
             var expected = new string []
             {
+                "// eq",
                 "@SP",
                 "AM=M-1",
                 "D=M",
@@ -85,7 +92,8 @@ namespace VMTranslator.Lib.Tests
                 "@SP",
                 "A=M-1",
                 "M=-1",
-                $"(EQ_END_{eqCount})"
+                $"(EQ_END_{eqCount})",
+                ""
             };
 
             var result = new ArithmeticCommandTranslatorBuilder()
@@ -103,6 +111,7 @@ namespace VMTranslator.Lib.Tests
         {
             var expected = new string []
             {
+                "// gt",
                 "@SP",
                 "AM=M-1",
                 "D=M",
@@ -120,7 +129,8 @@ namespace VMTranslator.Lib.Tests
                 "@SP",
                 "A=M-1",
                 "M=-1",
-                $"(GT_END_{gtCount})"
+                $"(GT_END_{gtCount})",
+                ""
             };
 
             var result = new ArithmeticCommandTranslatorBuilder()
@@ -138,6 +148,7 @@ namespace VMTranslator.Lib.Tests
         {
             var expected = new string []
             {
+                "// lt",
                 "@SP",
                 "AM=M-1",
                 "D=M",
@@ -156,6 +167,7 @@ namespace VMTranslator.Lib.Tests
                 "A=M-1",
                 "M=-1",
                 $"(LT_END_{ltCount})",
+                ""
             };
 
             var result = new ArithmeticCommandTranslatorBuilder()
@@ -171,12 +183,14 @@ namespace VMTranslator.Lib.Tests
         {
             var expected = new string []
             {
+                "// and",
                 "@SP",
                 "AM=M-1",
                 "D=M",
                 "@SP",
                 "A=M-1",
-                "M=D&M"
+                "M=D&M",
+                ""
             };
 
             var result = new ArithmeticCommandTranslatorBuilder()
@@ -191,12 +205,14 @@ namespace VMTranslator.Lib.Tests
         {
             var expected = new string []
             {
+                "// or",
                 "@SP",
                 "AM=M-1",
                 "D=M",
                 "@SP",
                 "A=M-1",
-                "M=D|M"
+                "M=D|M",
+                ""
             };
 
             var result = new ArithmeticCommandTranslatorBuilder()
@@ -211,9 +227,11 @@ namespace VMTranslator.Lib.Tests
         {
             var expected = new string []
             {
+                "// not",
                 "@SP",
                 "A=M-1",
-                "M=!M"
+                "M=!M",
+                ""
             };
 
             var result = new ArithmeticCommandTranslatorBuilder()

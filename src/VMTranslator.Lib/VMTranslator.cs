@@ -25,9 +25,7 @@ namespace VMTranslator.Lib
                 if (string.IsNullOrEmpty(cleanLines))
                     continue;
 
-                translatedLines.Add("// " + cleanLines);
                 translatedLines.AddRange(translator.ToAssembly(cleanLines));
-                translatedLines.Add("");
             }
 
             return translatedLines.ToArray();

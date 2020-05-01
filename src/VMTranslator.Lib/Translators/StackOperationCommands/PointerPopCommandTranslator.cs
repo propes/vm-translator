@@ -9,11 +9,13 @@ namespace VMTranslator.Lib
             var segment = command.Index == "0" ? "THIS" : "THAT";
             return new []
             {
+                $"// {command.ToString()}",
                 "@SP",
                 "AM=M-1",
                 "D=M",
                 $"@{segment}",
                 "M=D",
+                ""
             };
         }
     }

@@ -10,13 +10,15 @@ namespace VMTranslator.Lib.Tests
             var command = new Command("push", "pointer", "0");
             var expected = new []
             {
+                "// push pointer 0",
                 "@THIS",
                 "D=M",
                 "@SP",
                 "A=M",
                 "M=D",
                 "@SP",
-                "M=M+1"
+                "M=M+1",
+                ""
             };
 
             var result = new PointerPushCommandTranslator().ToAssembly(command);
@@ -30,13 +32,15 @@ namespace VMTranslator.Lib.Tests
             var command = new Command("push", "pointer", "1");
             var expected = new []
             {
+                "// push pointer 1",
                 "@THAT",
                 "D=M",
                 "@SP",
                 "A=M",
                 "M=D",
                 "@SP",
-                "M=M+1"
+                "M=M+1",
+                ""
             };
 
             var result = new PointerPushCommandTranslator().ToAssembly(command);

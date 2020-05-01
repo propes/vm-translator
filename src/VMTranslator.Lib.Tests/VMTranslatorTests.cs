@@ -49,19 +49,6 @@ namespace VMTranslator.Lib.Tests
             Assert.Empty(result);
         }
 
-        [Fact]
-        public void TranslateVMcodeToAssembly_CopiesOriginalCodeAsComment()
-        {
-            var lines = new []
-            {
-                "push local 5"
-            };
-
-            var result = CreateSut().TranslateVMcodeToAssembly(lines);
-
-            Assert.Equal("// push local 5", result[0]);
-        }
-
         [Theory]
         [InlineData("push local 0")]
         [InlineData("push temp 1")]
@@ -70,9 +57,7 @@ namespace VMTranslator.Lib.Tests
             var lines = new [] { line };
             var expected = new []
             {
-                $"// {line}",
-                "...",
-                ""
+                "..."
             };
 
             var mockTranslator = new Mock<ICommandTranslator>();

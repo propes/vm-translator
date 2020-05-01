@@ -15,11 +15,13 @@ namespace VMTranslator.Lib
         {
             return new[]
             {
+                $"// {command.ToString()}",
                 "@SP",
                 "AM=M-1",
                 "D=M",
                 $"@{variableName}.{command.Index}",
-                "M=D"
+                "M=D",
+                ""
             };
         }
     }

@@ -12,5 +12,10 @@ namespace VMTranslator.Lib
         public string Keyword { get; private set; }
         public string Segment { get; private set; }
         public string Index { get; private set; }
+
+        public override string ToString()
+        {
+            return $"{Keyword} {Segment} {Index}";
+        }
     }
 }

@@ -10,6 +10,7 @@ namespace VMTranslator.Lib.Tests
             var command = new Command("push", "temp", "3");
             var expected = new []
             {
+                "// push temp 3",
                 "@R5",
                 "D=A",
                 "@3",
@@ -19,7 +20,8 @@ namespace VMTranslator.Lib.Tests
                 "A=M",
                 "M=D",
                 "@SP",
-                "M=M+1"
+                "M=M+1",
+                ""
             };
 
             var result = new TempPushCommandTranslator().ToAssembly(command);

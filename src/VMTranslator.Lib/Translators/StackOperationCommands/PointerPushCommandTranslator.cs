@@ -9,6 +9,7 @@ namespace VMTranslator.Lib
             var segment = command.Index == "0" ? "THIS" : "THAT";
             return new []
             {
+                $"// {command.ToString()}",
                 $"@{segment}",
                 "D=M",
                 "@SP",
@@ -16,6 +17,7 @@ namespace VMTranslator.Lib
                 "M=D",
                 "@SP",
                 "M=M+1",
+                ""
             };
         }
     }

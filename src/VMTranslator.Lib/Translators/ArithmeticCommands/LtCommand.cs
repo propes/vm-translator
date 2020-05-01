@@ -15,6 +15,7 @@ namespace VMTranslator.Lib
         {
             var assembly = new string []
             {
+                "// lt",
                 "@SP",
                 "AM=M-1",
                 "D=M",
@@ -33,6 +34,7 @@ namespace VMTranslator.Lib
                 "A=M-1",
                 "M=-1",
                 $"(LT_END_{counter.Count})",
+                ""
             };
             counter.Increment();
 

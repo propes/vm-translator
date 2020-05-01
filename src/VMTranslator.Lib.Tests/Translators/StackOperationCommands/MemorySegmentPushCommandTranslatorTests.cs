@@ -14,6 +14,7 @@ namespace VMTranslator.Lib.Tests
             var command = new Command("push", segment, "5");
             var expected = new []
             {
+                $"// push {segment} 5",
                 $"@{code}",
                 "D=M",
                 "@5",
@@ -23,7 +24,8 @@ namespace VMTranslator.Lib.Tests
                 "A=M",
                 "M=D",
                 "@SP",
-                "M=M+1"
+                "M=M+1",
+                ""
             };
 
             var result = new MemorySegmentPushCommandTranslator().ToAssembly(command);
@@ -41,6 +43,7 @@ namespace VMTranslator.Lib.Tests
             var command = new Command("push", segment, "0");
             var expected = new []
             {
+                $"// push {segment} 0",
                 $"@{code}",
                 "D=M",
                 "@0",
@@ -50,7 +53,8 @@ namespace VMTranslator.Lib.Tests
                 "A=M",
                 "M=D",
                 "@SP",
-                "M=M+1"
+                "M=M+1",
+                ""
             };
 
             var result = new MemorySegmentPushCommandTranslator().ToAssembly(command);

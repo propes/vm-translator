@@ -10,6 +10,7 @@ namespace VMTranslator.Lib.Tests
             var command = new Command("pop", "temp", "5");
             var expected = new []
             {
+                "// pop temp 5",
                 "@SP",
                 "AM=M-1",
                 "D=M",
@@ -19,7 +20,8 @@ namespace VMTranslator.Lib.Tests
                 "A=A+1",
                 "A=A+1",
                 "A=A+1",
-                "M=D"
+                "M=D",
+                ""
             };
 
             var result = new TempPopCommandTranslator().ToAssembly(command);
