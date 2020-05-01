@@ -13,7 +13,7 @@ namespace VMTranslator.Lib
 
         public IEnumerable<string> ToAssembly()
         {
-            var aseembly = new string []
+            var assembly = new string []
             {
                 "// eq",
                 "@SP",
@@ -38,7 +38,7 @@ namespace VMTranslator.Lib
             };
             counter.Increment();
 
-            return aseembly;
+            return assembly;
         }
     }
 }
