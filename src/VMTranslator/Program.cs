@@ -44,7 +44,8 @@ namespace VMTranslator
                             new TempPopCommandTranslator()
                         )
                     ),
-                    new LabelTranslator()
+                    new LabelTranslator(),
+                    new GotoTranslator()
                 ));
             fileWriter = new FileWriter();
 

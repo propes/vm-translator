@@ -11,6 +11,7 @@ namespace VMTranslator.Lib.Tests
             private Mock<ICommandTranslator> mockArithmeticTranslator = new Mock<ICommandTranslator>();
             private Mock<ICommandTranslator> mockStackOperationTranslator = new Mock<ICommandTranslator>();
             private Mock<ICommandTranslator> mockLabelTranslator = new Mock<ICommandTranslator>();
+            private Mock<ICommandTranslator> mockGotoTranslator = new Mock<ICommandTranslator>();
 
             public CommandTranslatorBuilder WithMockArithmeticTranslator(
                 Mock<ICommandTranslator> mockArithmeticTranslator)
@@ -36,12 +37,21 @@ namespace VMTranslator.Lib.Tests
                 return this;
             }
 
+            public CommandTranslatorBuilder WithMockGotoTranslator(
+                Mock<ICommandTranslator> mockGotoTranslator)
+            {
+                this.mockGotoTranslator = mockGotoTranslator;
+
+                return this;
+            }
+
             public CommandTranslator CreateSut()
             {
                 return new CommandTranslator(
                     mockArithmeticTranslator.Object,
                     mockStackOperationTranslator.Object,
-                    mockLabelTranslator.Object
+                    mockLabelTranslator.Object,
+                    mockGotoTranslator.Object
                 );
             }
         }
@@ -115,6 +125,24 @@ namespace VMTranslator.Lib.Tests
                 .ToAssembly(command);
 
             Assert.Equal(new [] { "label" }, actual);
+        }
+
+        [Fact]
+        public void ToAssembly_GivenGotoCommand_ReturnsCorrectOutput()
+        {
+            var command = "goto FOO";
+
+            var mockTranslator = new Mock<ICommandTranslator>();
+            mockTranslator
+                .Setup(t => t.ToAssembly(command))
+                .Returns(new [] { "goto" });
+
+            var actual = new CommandTranslatorBuilder()
+                .WithMockGotoTranslator(mockTranslator)
+                .CreateSut()
+                .ToAssembly(command);
+
+            Assert.Equal(new [] { "goto" }, actual);
         }
     }
 }
