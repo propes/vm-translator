@@ -44,7 +44,7 @@ namespace VMTranslator
                             new TempPopCommandTranslator()
                         )
                     ),
-                    new LabelTranslator(),
+                    new LabelTranslator(filenameWithoutExt, new FunctionState()),
                     new GotoTranslator(),
                     new IfGotoTranslator()
                 ));
