@@ -13,6 +13,7 @@ namespace VMTranslator.Lib.Tests
             private Mock<ICommandTranslator> mockLabelTranslator = new Mock<ICommandTranslator>();
             private Mock<ICommandTranslator> mockGotoTranslator = new Mock<ICommandTranslator>();
             private Mock<ICommandTranslator> mockIfGotoTranslator = new Mock<ICommandTranslator>();
+            private Mock<ICommandTranslator> mockFunctionTranslator = new Mock<ICommandTranslator>();
 
             public CommandTranslatorBuilder WithMockArithmeticTranslator(
                 Mock<ICommandTranslator> mockArithmeticTranslator)
@@ -54,6 +55,14 @@ namespace VMTranslator.Lib.Tests
                 return this;
             }
 
+            public CommandTranslatorBuilder WithMockFunctionTranslator(
+                Mock<ICommandTranslator> mockFunctionTranslator)
+            {
+                this.mockFunctionTranslator = mockFunctionTranslator;
+
+                return this;
+            }
+
             public CommandTranslator CreateSut()
             {
                 return new CommandTranslator(
@@ -61,7 +70,8 @@ namespace VMTranslator.Lib.Tests
                     mockStackOperationTranslator.Object,
                     mockLabelTranslator.Object,
                     mockGotoTranslator.Object,
-                    mockIfGotoTranslator.Object
+                    mockIfGotoTranslator.Object,
+                    mockFunctionTranslator.Object
                 );
             }
         }
@@ -171,6 +181,24 @@ namespace VMTranslator.Lib.Tests
                 .ToAssembly(command);
 
             Assert.Equal(new [] { "if-goto" }, actual);
+        }
+
+        [Fact]
+        public void ToAssembly_GivenFunctionCommand_ReturnsCorrectOutput()
+        {
+            var command = "function foo 2";
+
+            var mockTranslator = new Mock<ICommandTranslator>();
+            mockTranslator
+                .Setup(t => t.ToAssembly(command))
+                .Returns(new [] { "function" });
+
+            var actual = new CommandTranslatorBuilder()
+                .WithMockFunctionTranslator(mockTranslator)
+                .CreateSut()
+                .ToAssembly(command);
+
+            Assert.Equal(new [] { "function" }, actual);
         }
     }
 }
