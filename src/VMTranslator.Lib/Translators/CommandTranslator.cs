@@ -13,7 +13,8 @@ namespace VMTranslator.Lib
             ICommandTranslator labelCommandTranslator,
             ICommandTranslator gotoCommandTranslator,
             ICommandTranslator ifGotoCommandTranslator,
-            ICommandTranslator functionCommandTranslator)
+            ICommandTranslator functionCommandTranslator,
+            ICommandTranslator returnCommandTranslator)
         {
             translators = new Dictionary<string, ICommandTranslator>
             {
@@ -31,7 +32,8 @@ namespace VMTranslator.Lib
                 { "label", labelCommandTranslator },
                 { "goto", gotoCommandTranslator },
                 { "if-goto", ifGotoCommandTranslator },
-                { "function", functionCommandTranslator }
+                { "function", functionCommandTranslator },
+                { "return", returnCommandTranslator }
             };
         }
 

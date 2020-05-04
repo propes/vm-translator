@@ -4,77 +4,8 @@ using Xunit;
 
 namespace VMTranslator.Lib.Tests
 {
-    public class CommandTranslatorTests
+    public partial class CommandTranslatorTests
     {
-        private class CommandTranslatorBuilder
-        {
-            private Mock<ICommandTranslator> mockArithmeticTranslator = new Mock<ICommandTranslator>();
-            private Mock<ICommandTranslator> mockStackOperationTranslator = new Mock<ICommandTranslator>();
-            private Mock<ICommandTranslator> mockLabelTranslator = new Mock<ICommandTranslator>();
-            private Mock<ICommandTranslator> mockGotoTranslator = new Mock<ICommandTranslator>();
-            private Mock<ICommandTranslator> mockIfGotoTranslator = new Mock<ICommandTranslator>();
-            private Mock<ICommandTranslator> mockFunctionTranslator = new Mock<ICommandTranslator>();
-
-            public CommandTranslatorBuilder WithMockArithmeticTranslator(
-                Mock<ICommandTranslator> mockArithmeticTranslator)
-            {
-                this.mockArithmeticTranslator = mockArithmeticTranslator;
-
-                return this;
-            }
-
-            public CommandTranslatorBuilder WithMockStackOperationTranslator(
-                Mock<ICommandTranslator> mockStackOperationTranslator)
-            {
-                this.mockStackOperationTranslator = mockStackOperationTranslator;
-
-                return this;
-            }
-
-            public CommandTranslatorBuilder WithMockLabelTranslator(
-                Mock<ICommandTranslator> mockLabelTranslator)
-            {
-                this.mockLabelTranslator = mockLabelTranslator;
-
-                return this;
-            }
-
-            public CommandTranslatorBuilder WithMockGotoTranslator(
-                Mock<ICommandTranslator> mockGotoTranslator)
-            {
-                this.mockGotoTranslator = mockGotoTranslator;
-
-                return this;
-            }
-
-            public CommandTranslatorBuilder WithMockIfGotoTranslator(
-                Mock<ICommandTranslator> mockIfGotoTranslator)
-            {
-                this.mockIfGotoTranslator = mockIfGotoTranslator;
-
-                return this;
-            }
-
-            public CommandTranslatorBuilder WithMockFunctionTranslator(
-                Mock<ICommandTranslator> mockFunctionTranslator)
-            {
-                this.mockFunctionTranslator = mockFunctionTranslator;
-
-                return this;
-            }
-
-            public CommandTranslator CreateSut()
-            {
-                return new CommandTranslator(
-                    mockArithmeticTranslator.Object,
-                    mockStackOperationTranslator.Object,
-                    mockLabelTranslator.Object,
-                    mockGotoTranslator.Object,
-                    mockIfGotoTranslator.Object,
-                    mockFunctionTranslator.Object
-                );
-            }
-        }
 
         [Theory]
         [InlineData("")]
@@ -199,6 +130,24 @@ namespace VMTranslator.Lib.Tests
                 .ToAssembly(command);
 
             Assert.Equal(new [] { "function" }, actual);
+        }
+
+        [Fact]
+        public void ToAssembly_GivenReturnCommand_ReturnsCorrectOutput()
+        {
+            var command = "return";
+
+            var mockTranslator = new Mock<ICommandTranslator>();
+            mockTranslator
+                .Setup(t => t.ToAssembly(command))
+                .Returns(new [] { "return" });
+
+            var actual = new CommandTranslatorBuilder()
+                .WithMockReturnTranslator(mockTranslator)
+                .CreateSut()
+                .ToAssembly(command);
+
+            Assert.Equal(new [] { "return" }, actual);
         }
     }
 }
