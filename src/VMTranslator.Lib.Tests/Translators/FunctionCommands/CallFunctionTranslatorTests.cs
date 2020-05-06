@@ -26,14 +26,14 @@ namespace VMTranslator.Lib.Tests
         }
 
         [Theory]
-        [InlineData("foo")]
-        [InlineData("bar")]
-        public void ToAssembly_GivenCommand_ReturnsExpected(string functionName)
+        [InlineData("foo", 2)]
+        [InlineData("bar", 3)]
+        public void ToAssembly_GivenCommand_ReturnsExpected(string functionName, int nArgs)
         {
-            var line = $"call {functionName} 3";
+            var line = $"call {functionName} {nArgs}";
             var expected = new []
             {
-                $"// call {functionName} 3",
+                $"// call {functionName} {nArgs}",
                 $"// push {functionName}$ret.0",
                 $"@{functionName}$ret.0",
                 "D=A",
@@ -79,7 +79,7 @@ namespace VMTranslator.Lib.Tests
                 "D=A",
                 "@5",
                 "D=D-A",
-                "@3",
+                $"@{nArgs}",
                 "D=D-A",
                 "@ARG",
                 "M=D",

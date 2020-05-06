@@ -74,7 +74,7 @@ namespace VMTranslator
                 "D=A",
                 "@5",
                 "D=D-A",
-                "@3",
+                $"@{nArgs}",
                 "D=D-A",
                 "@ARG",
                 "M=D",
