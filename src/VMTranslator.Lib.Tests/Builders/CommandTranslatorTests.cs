@@ -149,5 +149,23 @@ namespace VMTranslator.Lib.Tests
 
             Assert.Equal(new [] { "return" }, actual);
         }
+
+        [Fact]
+        public void ToAssembly_GivenCallFunctionCommand_ReturnsCorrectOutput()
+        {
+            var command = "call";
+
+            var mockTranslator = new Mock<ICommandTranslator>();
+            mockTranslator
+                .Setup(t => t.ToAssembly(command))
+                .Returns(new [] { "call" });
+
+            var actual = new CommandTranslatorBuilder()
+                .WithMockCallFunctionTranslator(mockTranslator)
+                .CreateSut()
+                .ToAssembly(command);
+
+            Assert.Equal(new [] { "call" }, actual);
+        }
     }
 }

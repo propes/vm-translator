@@ -13,6 +13,7 @@ namespace VMTranslator.Lib.Tests
             private Mock<ICommandTranslator> mockIfGotoTranslator = new Mock<ICommandTranslator>();
             private Mock<ICommandTranslator> mockFunctionTranslator = new Mock<ICommandTranslator>();
             private Mock<ICommandTranslator> mockReturnTranslator = new Mock<ICommandTranslator>();
+            private Mock<ICommandTranslator> mockCallFunctionTranslator = new Mock<ICommandTranslator>();
 
             public CommandTranslatorBuilder WithMockArithmeticTranslator(
                 Mock<ICommandTranslator> mockArithmeticTranslator)
@@ -70,6 +71,14 @@ namespace VMTranslator.Lib.Tests
                 return this;
             }
 
+            public CommandTranslatorBuilder WithMockCallFunctionTranslator(
+                Mock<ICommandTranslator> mockCallFunctionTranslator)
+            {
+                this.mockCallFunctionTranslator = mockCallFunctionTranslator;
+
+                return this;
+            }
+
             public CommandTranslator CreateSut()
             {
                 return new CommandTranslator(
@@ -79,7 +88,8 @@ namespace VMTranslator.Lib.Tests
                     mockGotoTranslator.Object,
                     mockIfGotoTranslator.Object,
                     mockFunctionTranslator.Object,
-                    mockReturnTranslator.Object
+                    mockReturnTranslator.Object,
+                    mockCallFunctionTranslator.Object
                 );
             }
         }
