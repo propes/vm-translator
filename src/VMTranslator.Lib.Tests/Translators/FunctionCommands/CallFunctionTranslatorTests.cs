@@ -85,7 +85,7 @@ namespace VMTranslator.Lib.Tests
                 "M=D",
                 "// LCL = SP",
                 "@SP",
-                "D=A",
+                "D=M",
                 "@LCL",
                 "M=D",
                 $"// goto {functionName}",
