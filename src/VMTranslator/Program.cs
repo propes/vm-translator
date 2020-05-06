@@ -45,8 +45,8 @@ namespace VMTranslator
                         )
                     ),
                     new LabelTranslator(filenameWithoutExt, new FunctionState()),
-                    new GotoTranslator(),
-                    new IfGotoTranslator(),
+                    new GotoTranslator(filenameWithoutExt),
+                    new IfGotoTranslator(filenameWithoutExt),
                     new FunctionTranslator(),
                     new ReturnTranslator(),
                     new CallFunctionTranslator(new FunctionCallCounter())

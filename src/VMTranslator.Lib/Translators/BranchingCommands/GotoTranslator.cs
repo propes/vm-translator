@@ -5,6 +5,13 @@ namespace VMTranslator.Lib
 {
     public class GotoTranslator : ICommandTranslator
     {
+        private readonly string filename;
+
+        public GotoTranslator(string filename)
+        {
+            this.filename = filename;
+        }
+
         public IEnumerable<string> ToAssembly(string line)
         {
             var parts = line.Split(' ');
@@ -17,7 +24,7 @@ namespace VMTranslator.Lib
             return new []
             {
                 $"// {line}",
-                $"@{parts[1]}",
+                $"@{filename}.{parts[1]}",
                 "0;JMP",
                 ""
             };

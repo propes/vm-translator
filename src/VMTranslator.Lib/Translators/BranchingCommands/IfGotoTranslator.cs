@@ -5,6 +5,13 @@ namespace VMTranslator.Lib
 {
     public class IfGotoTranslator : ICommandTranslator
     {
+        private readonly string filename;
+
+        public IfGotoTranslator(string filename)
+        {
+            this.filename = filename;
+        }
+
         public IEnumerable<string> ToAssembly(string line)
         {
             var parts = line.Split(' ');
@@ -20,7 +27,7 @@ namespace VMTranslator.Lib
                 "@SP",
                 "AM=M-1",
                 "D=M",
-                $"@{parts[1]}",
+                $"@{filename}.{parts[1]}",
                 "D;JNE",
                 ""
             };

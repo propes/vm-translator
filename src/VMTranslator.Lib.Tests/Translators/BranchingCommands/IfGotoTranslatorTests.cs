@@ -8,7 +8,7 @@ namespace VMTranslator.Lib.Tests
         [Fact]
         public void ToAssembly_GivenInvalidCommand_ThrowsException()
         {
-            Assert.Throws<InvalidOperationException>(() => new IfGotoTranslator().ToAssembly("if-goto"));
+            Assert.Throws<InvalidOperationException>(() => new IfGotoTranslator(string.Empty).ToAssembly("if-goto"));
         }
 
         [Fact]
@@ -20,12 +20,12 @@ namespace VMTranslator.Lib.Tests
                 "@SP",
                 "AM=M-1",
                 "D=M",
-                "@FOO",
+                "@foo.FOO",
                 "D;JNE",
                 ""
             };
 
-            var actual = new IfGotoTranslator().ToAssembly("if-goto FOO");
+            var actual = new IfGotoTranslator("foo").ToAssembly("if-goto FOO");
 
             Assert.Equal(expected, actual);
         }
