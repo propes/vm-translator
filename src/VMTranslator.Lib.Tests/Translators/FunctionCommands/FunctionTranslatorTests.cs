@@ -11,7 +11,7 @@ namespace VMTranslator.Lib.Tests
         public void ToAssembly_GivenInvalidCommand_ThrowsException(string command)
         {
             Assert.Throws<InvalidOperationException>(() =>
-                new FunctionTranslator(string.Empty).ToAssembly(command));
+                new FunctionTranslator().ToAssembly(command));
         }
 
         [Theory]
@@ -23,10 +23,10 @@ namespace VMTranslator.Lib.Tests
             var expected = new []
             {
                 $"// function {functionName} 0",
-                $"(foo.{functionName})"
+                $"({functionName})"
             };
 
-            var actual = new FunctionTranslator("foo").ToAssembly(line);
+            var actual = new FunctionTranslator().ToAssembly(line);
 
             Assert.Equal(expected, actual);
         }
@@ -38,7 +38,7 @@ namespace VMTranslator.Lib.Tests
             var expected = new []
             {
                 "// function bar 2",
-                $"(foo.bar)",
+                $"(bar)",
                 "// push constant 0",
                 "@0",
                 "D=A",
@@ -59,7 +59,7 @@ namespace VMTranslator.Lib.Tests
                 ""
             };
 
-            var actual = new FunctionTranslator("foo").ToAssembly(line);
+            var actual = new FunctionTranslator().ToAssembly(line);
 
             Assert.Equal(expected, actual);
         }

@@ -5,13 +5,6 @@ namespace VMTranslator.Lib
 {
     public class FunctionTranslator : ICommandTranslator
     {
-        private readonly string filename;
-
-        public FunctionTranslator(string filename)
-        {
-            this.filename = filename;
-        }
-
         public IEnumerable<string> ToAssembly(string line)
         {
             var parts = line.Split(' ');
@@ -28,7 +21,7 @@ namespace VMTranslator.Lib
 
             var assembly = new List<string>();
             assembly.Add($"// {line}");
-            assembly.Add($"({filename}.{parts[1]})");
+            assembly.Add($"({parts[1]})");
 
             for (int i = 0; i < nVars; i++)
             {
