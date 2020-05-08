@@ -14,6 +14,7 @@
 
 ### VisualStudioCode ###
 .vscode/*
+src/.vscode/*
 
 ### VisualStudioCode Patch ###
 # Ignore all local history of files

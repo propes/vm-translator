@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using VMTranslator.Lib;
 
@@ -6,23 +7,53 @@ namespace VMTranslator
 {
     class Program
     {
-        private static IFileReader fileReader;
-        private static IVMTranslator translator;
-        private static IFileWriter fileWriter;
-
         static void Main(string[] args)
         {
             if (args.Length == 0)
             {
-                Console.WriteLine("Please specify a vm file path");
+                Console.WriteLine("Please specify a vm file or folder");
                 return;
             }
 
-            var filename = args[0];
-            var filenameWithoutExt = Path.GetFileNameWithoutExtension(filename);
+            IEnumerable<string> inputFilenames;
+            if (File.Exists(args[0]))
+            {
+                inputFilenames = new[] { args[0] };
+            }
+            else if (Directory.Exists(args[0]))
+            {
+                inputFilenames = Directory.EnumerateFiles(args[0], "*.vm");
+            }
+            else
+            {
+                Console.WriteLine("Please specify a valid vm file or folder");
+                return;
+            }
 
-            fileReader = new FileReader();
-            translator = new VMTranslator.Lib.VMTranslator(
+            var outputFilename = Path.ChangeExtension(args[0], "asm");
+            using (var sw = File.AppendText(outputFilename))
+            {
+                AddBootstrappingCode(sw);
+
+                foreach (var inputFilename in inputFilenames)
+                {
+                    var filenameWithoutExt = Path.GetFileNameWithoutExtension(inputFilename);
+
+                    new VMFileTranslator(CreateTranslator(filenameWithoutExt))
+                        .TranslateFileToStream(inputFilename, sw);
+                }
+            }
+        }
+
+        private static void AddBootstrappingCode(StreamWriter sw)
+        {
+            sw.WriteLine("SP=256");
+            sw.WriteLine("Call Sys.init");
+        }
+
+        private static IVMTranslator CreateTranslator(string filenameWithoutExt)
+        {
+            return new VMTranslator.Lib.VMTranslator(
                 new TextCleaner(),
                 new CommandTranslator(
                     new ArithmeticCommandTranslator(
@@ -51,13 +82,6 @@ namespace VMTranslator
                     new ReturnTranslator(),
                     new CallFunctionTranslator(new FunctionCallCounter())
                 ));
-            fileWriter = new FileWriter();
-
-            var lines = fileReader.ReadFileToArray(filename);
-            var translatedLines = translator.TranslateVMcodeToAssembly(lines);
-
-            string outputFilename = Path.ChangeExtension(filename, "asm");
-            fileWriter.WriteArrayToFile(outputFilename, translatedLines);
         }
     }
 }
