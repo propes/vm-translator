@@ -31,7 +31,7 @@ namespace VMTranslator
             }
 
             var outputFilename = Path.ChangeExtension(args[0], "asm");
-            using (var sw = File.AppendText(outputFilename))
+            using (var sw = File.CreateText(outputFilename))
             {
                 AddBootstrappingCode(sw);
 
@@ -47,8 +47,11 @@ namespace VMTranslator
 
         private static void AddBootstrappingCode(StreamWriter sw)
         {
-            sw.WriteLine("SP=256");
-            sw.WriteLine("Call Sys.init");
+            var bootstrapLines = new BootstrapCode().ToAssembly();
+            foreach(var line in bootstrapLines)
+            {
+                sw.WriteLine(line);
+            }
         }
 
         private static IVMTranslator CreateTranslator(string filenameWithoutExt)
