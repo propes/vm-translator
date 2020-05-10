@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using VMTranslator.Lib;
 
 namespace VMTranslator
@@ -9,20 +10,25 @@ namespace VMTranslator
     {
         static void Main(string[] args)
         {
-            if (args.Length == 0)
+            if (args.Length < 1)
             {
                 Console.WriteLine("Please specify a vm file or folder");
                 return;
             }
 
+            var path = args[0];
+
             IEnumerable<string> inputFilenames;
-            if (File.Exists(args[0]))
+            string outputFilename;
+            if (File.Exists(path))
             {
-                inputFilenames = new[] { args[0] };
+                inputFilenames = new[] { path };
+                outputFilename = Path.ChangeExtension(path, "asm");
             }
-            else if (Directory.Exists(args[0]))
+            else if (Directory.Exists(path))
             {
-                inputFilenames = Directory.EnumerateFiles(args[0], "*.vm");
+                inputFilenames = Directory.EnumerateFiles(path, "*.vm");
+                outputFilename = path.TrimEnd('/') + ".asm";
             }
             else
             {
@@ -30,7 +36,6 @@ namespace VMTranslator
                 return;
             }
 
-            var outputFilename = Path.ChangeExtension(args[0], "asm");
             using (var sw = File.CreateText(outputFilename))
             {
                 AddBootstrappingCode(sw);
