@@ -89,7 +89,7 @@ namespace VMTranslator
                 $"({functionName}$ret.{callCount})",
                 ""
             };
-            callCounter.IncrementCount("foo");
+            callCounter.IncrementCount(functionName);
 
             return assembly;
         }

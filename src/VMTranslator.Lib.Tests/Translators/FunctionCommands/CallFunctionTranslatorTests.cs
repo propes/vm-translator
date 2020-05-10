@@ -100,18 +100,20 @@ namespace VMTranslator.Lib.Tests
             Assert.Equal(expected, actual);
         }
 
-        [Fact]
-        public void ToAssembly_GivenRepeatCalls_IncrementsReturnLabel()
+        [Theory]
+        [InlineData("foo")]
+        [InlineData("bar")]
+        public void ToAssembly_GivenRepeatCalls_IncrementsReturnLabel(string functionName)
         {
             var callCounter = new FunctionCallCounter();
 
-            CreateSutWithCallCounter(callCounter).ToAssembly("call foo 0");
-            CreateSutWithCallCounter(callCounter).ToAssembly("call foo 0");
-            var actual = CreateSutWithCallCounter(callCounter).ToAssembly("call foo 0");
+            CreateSutWithCallCounter(callCounter).ToAssembly($"call {functionName} 0");
+            CreateSutWithCallCounter(callCounter).ToAssembly($"call {functionName} 0");
+            var actual = CreateSutWithCallCounter(callCounter).ToAssembly($"call {functionName} 0");
 
-            Assert.Contains("// push foo$ret.2", actual);
-            Assert.Contains("@foo$ret.2", actual);
-            Assert.Contains("(foo$ret.2)", actual);
+            Assert.Contains($"// push {functionName}$ret.2", actual);
+            Assert.Contains($"@{functionName}$ret.2", actual);
+            Assert.Contains($"({functionName}$ret.2)", actual);
         }
     }
 }
