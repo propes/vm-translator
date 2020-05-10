@@ -68,11 +68,6 @@ namespace VMTranslator.Lib.Tests
         {
             var expected = new [] { $"(foo.{label})" };
 
-            var functionState = new FunctionState
-            {
-                CurrentFunction = "bar"
-            };
-
             var sut = new LabelTranslatorBuilder()
                 .WithFilename("foo")
                 .CreateSut();

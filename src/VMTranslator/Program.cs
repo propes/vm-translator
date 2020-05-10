@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using VMTranslator.Lib;
 
 namespace VMTranslator
@@ -36,6 +35,11 @@ namespace VMTranslator
                 return;
             }
 
+            var eqCommandCounter = new Counter();
+            var gtCommandCounter = new Counter();
+            var ltCommandCounter = new Counter();
+            var functionCallCounter = new FunctionCallCounter();
+
             using (var sw = File.CreateText(outputFilename))
             {
                 AddBootstrappingCode(sw);
@@ -44,7 +48,13 @@ namespace VMTranslator
                 {
                     var filenameWithoutExt = Path.GetFileNameWithoutExtension(inputFilename);
 
-                    new VMFileTranslator(CreateTranslator(filenameWithoutExt))
+                    new VMFileTranslator(CreateTranslator(
+                            eqCommandCounter,
+                            gtCommandCounter,
+                            ltCommandCounter,
+                            functionCallCounter,
+                            filenameWithoutExt
+                        ))
                         .TranslateFileToStream(inputFilename, sw);
                 }
             }
@@ -59,15 +69,20 @@ namespace VMTranslator
             }
         }
 
-        private static IVMTranslator CreateTranslator(string filenameWithoutExt)
+        private static IVMTranslator CreateTranslator(
+            ICounter eqCommandCounter,
+            ICounter gtCommandCounter,
+            ICounter ltCommandCounter,
+            IFunctionCallCounter functionCallCounter,
+            string filenameWithoutExt)
         {
             return new VMTranslator.Lib.VMTranslator(
                 new TextCleaner(),
                 new CommandTranslator(
                     new ArithmeticCommandTranslator(
-                        new Counter(),
-                        new Counter(),
-                        new Counter()
+                        eqCommandCounter,
+                        gtCommandCounter,
+                        ltCommandCounter
                     ),
                     new StackOperationTranslator(
                         new CommandParser(),
@@ -88,7 +103,7 @@ namespace VMTranslator
                     new IfGotoTranslator(filenameWithoutExt),
                     new FunctionTranslator(),
                     new ReturnTranslator(),
-                    new CallFunctionTranslator(new FunctionCallCounter())
+                    new CallFunctionTranslator(functionCallCounter)
                 ));
         }
     }
