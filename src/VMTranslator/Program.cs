@@ -19,6 +19,7 @@ namespace VMTranslator
 
             IEnumerable<string> inputFilenames;
             string outputFilename;
+            var isBootstrappingRequired = false;
             if (File.Exists(path))
             {
                 inputFilenames = new[] { path };
@@ -28,6 +29,7 @@ namespace VMTranslator
             {
                 inputFilenames = Directory.EnumerateFiles(path, "*.vm");
                 outputFilename = path.TrimEnd('/') + ".asm";
+                isBootstrappingRequired = true;
             }
             else
             {
@@ -42,7 +44,10 @@ namespace VMTranslator
 
             using (var sw = File.CreateText(outputFilename))
             {
-                AddBootstrappingCode(sw);
+                if (isBootstrappingRequired)
+                {
+                    AddBootstrappingCode(sw);
+                }
 
                 foreach (var inputFilename in inputFilenames)
                 {
