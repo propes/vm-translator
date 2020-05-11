@@ -28,7 +28,7 @@ namespace VMTranslator
             else if (Directory.Exists(path))
             {
                 inputFilenames = Directory.EnumerateFiles(path, "*.vm");
-                outputFilename = path.TrimEnd('/') + ".asm";
+                outputFilename = Path.Combine(path, path.TrimEnd('/') + ".asm");
                 isBootstrappingRequired = true;
             }
             else
